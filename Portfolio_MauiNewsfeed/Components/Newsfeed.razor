@@ -2,6 +2,7 @@
 @using System.Xml;
 @inject NavigationManager navigationManager
 
+<br />
 @if (Feed != null)
 {
     if (Blacklist.Count() > 0 || Whitelist.Count() > 0)
@@ -19,7 +20,7 @@
         }
     }
 }
-
+<br />
 @code {
 
     [Parameter]

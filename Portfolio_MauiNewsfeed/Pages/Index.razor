@@ -1,19 +1,25 @@
 ﻿@page "/"
 
+<div class="align-content-center">
 <TabControl>
-  <TabPage Text="Seneste Nyt">
+    <TabPage Text="Seneste Nyt">
+        <br />
         <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/senestenyt" />
-  </TabPage>  <TabPage Text="Indland">
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland"/>
-  </TabPage>
+    </TabPage>  
+    <TabPage Text="Indland">
+            <br />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland" />
+    </TabPage>
     <TabPage Text="Udland">
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/udland"/>
+            <br />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/udland" />
     </TabPage>
     <TabPage Text="Penge">
+            <br />
         <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/penge" />
     </TabPage>
 </TabControl>
-
+</div>
 
 @code {
 
