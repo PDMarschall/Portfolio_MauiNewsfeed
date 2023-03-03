@@ -1,0 +1,34 @@
+﻿@using System.ServiceModel.Syndication;
+@using System.Xml;
+
+@if (Feed != null)
+{
+    foreach (SyndicationItem item in Feed.Items)
+    {
+        <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate" />
+    }
+}
+
+@code {
+
+    [Parameter]
+    public string FeedUrl { get; set; }
+
+    public SyndicationFeed Feed { get; set; }
+
+    protected override Task OnParametersSetAsync()
+    {
+        XmlReader reader = XmlReader.Create(FeedUrl);
+        Feed = SyndicationFeed.Load(reader);
+
+        foreach (SyndicationItem item in Feed.Items)
+        {
+            if (item.Summary == null)
+            {
+                item.Summary = new TextSyndicationContent("");
+            }
+        }
+
+        return base.OnParametersSetAsync();
+    }
+}

@@ -1,0 +1,76 @@
+﻿<div class="card">
+    <h3>
+        @Title
+    </h3>
+    <p>
+        @Description
+    </p>
+    @if (PublicationDate != null)
+    {
+        if (ItemAge.TotalSeconds < 60)
+        {
+            <p>
+                Posted less than a minute ago.
+            </p>
+        }
+        else if (ItemAge.TotalMinutes < 60)
+        {
+            <p>
+                Posted @Convert.ToInt32(ItemAge.TotalMinutes) minutes ago.
+            </p>
+        }
+        else if (ItemAge.TotalHours < 2)
+        {
+            <p>
+                Posted @Convert.ToInt32(ItemAge.TotalHours) hour ago.
+            </p>
+        }
+        else if (ItemAge.TotalHours < 24)
+        {
+            <p>
+                Posted @Convert.ToInt32(ItemAge.TotalHours) hours ago.
+            </p>
+        }
+        else if (ItemAge.TotalDays < 2)
+        {
+            <p>
+                Posted @Convert.ToInt32(ItemAge.TotalDays) day ago.
+            </p>
+        }
+        else
+        {
+            <p>
+                Posted @Convert.ToInt32(ItemAge.TotalDays) days ago.
+            </p>
+        }
+    }
+</div>
+<br />
+
+@code {
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Description { get; set; }
+
+    [Parameter]
+    public string? Link { get; set; }
+
+    [Parameter]
+    public DateTimeOffset? PublicationDate { get; set; }
+
+    public TimeSpan ItemAge { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (PublicationDate != null)
+        {
+            ItemAge = DateTimeOffset.Now - PublicationDate.Value;
+        }
+
+        base.OnParametersSet();
+    }
+
+}
