@@ -1,28 +1,38 @@
 ﻿@page "/"
+@using Portfolio_MauiNewsfeed.Configuration;
+@inject UserSettings userSettings
 
 <TabControl>
     <TabPage Text="Seneste Nyt">
         <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/senestenyt" />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/senestenyt" IsFiltered="userSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
     </TabPage>  
     <TabPage Text="Indland">
             <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland" Whitelist="UserWhitelist" Blacklist="UserBlacklist"/>
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland" IsFiltered="userSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
     </TabPage>
     <TabPage Text="Udland">
             <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/udland" />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/udland" IsFiltered="userSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
     </TabPage>
     <TabPage Text="Penge">
             <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/penge" />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/penge" IsFiltered="userSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
     </TabPage>
 </TabControl>
 
 @code {
+    public List<string> Whitelist { get; set; }
+    public List<string> Blacklist { get; set; }
 
-    public List<string> UserBlacklist { get; set; } = new List<string> { "skal" };
+    protected override void OnParametersSet()
+    {
+        if (userSettings.FilterFeeds)
+        {
+            Whitelist = userSettings.UserWhitelist;
+            Blacklist = userSettings.UserBlacklist;
+        }
 
-    public List<string> UserWhitelist { get; set; } = new List<string> { "unge" };
-
+        base.OnParametersSet();
+    }
 }

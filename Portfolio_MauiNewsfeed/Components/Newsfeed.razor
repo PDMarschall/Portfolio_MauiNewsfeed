@@ -9,14 +9,14 @@
     {
         foreach (SyndicationItem item in _filteredFeed.Items)
         {
-            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate"/>
+            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate" />
         }
     }
     else
     {
         foreach (SyndicationItem item in _feed.Items)
         {
-            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate"/>
+            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate" />
         }
     }
 }
@@ -27,19 +27,27 @@
     public string FeedUrl { get; set; }
 
     [Parameter]
-    public List<string> Whitelist { get; set; } = new List<string>();
+    public bool IsFiltered { get; set; }
 
     [Parameter]
-    public List<string> Blacklist { get; set; } = new List<string>();
+    public List<string> Whitelist { get; set; }
+
+    [Parameter]
+    public List<string> Blacklist { get; set; }
 
     private SyndicationFeed _feed;
     private SyndicationFeed _filteredFeed;
 
     protected override Task OnParametersSetAsync()
     {
+        Whitelist ??= new List<string>();
+        Blacklist ??= new List<string>();
+
         LoadFeed();
         InitializeNullEntries();
-        ApplyFilter();
+
+        if (IsFiltered)
+            ApplyFilter();
 
         return base.OnParametersSetAsync();
     }
@@ -63,6 +71,8 @@
 
     public void ApplyFilter()
     {
+
+
         if (Whitelist.Count() > 0 || Blacklist.Count() > 0)
         {
             _filteredFeed = _feed;

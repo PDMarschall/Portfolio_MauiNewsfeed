@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Portfolio_MauiNewsfeed.Configuration;
 using Portfolio_MauiNewsfeed.Data;
 
 namespace Portfolio_MauiNewsfeed;
@@ -23,6 +24,7 @@ public static class MauiProgram
 #endif
 
 		builder.Services.AddSingleton<WeatherForecastService>();
+		builder.Services.AddSingleton<UserSettings>();
 
 		return builder.Build();
 	}
