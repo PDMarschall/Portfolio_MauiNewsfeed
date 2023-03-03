@@ -8,14 +8,14 @@
     {
         foreach (SyndicationItem item in FilteredFeed.Items)
         {
-            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate" NavigateToLink="NavigateToNewsfeedItem" />
+            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate" NewsItemClickEvent="NavigateToNewsfeedItem" />
         }
     }
     else
     {
         foreach (SyndicationItem item in Feed.Items)
         {
-            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate" NavigateToLink="NavigateToNewsfeedItem" />
+            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate" NewsItemClickEvent="NavigateToNewsfeedItem" />
         }
     }
 }

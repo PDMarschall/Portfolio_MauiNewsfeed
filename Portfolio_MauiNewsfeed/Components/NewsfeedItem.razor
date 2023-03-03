@@ -1,4 +1,4 @@
-﻿<div class="card" @ondblclick="OnClick">
+﻿<div class="card" @ondblclick="OnNewsClick">
     <h3>
         @Title
     </h3>
@@ -62,7 +62,7 @@
     public DateTimeOffset? PublicationDate { get; set; }
 
     [Parameter]
-    public EventCallback<string> NavigateToLink { get; set; }
+    public EventCallback<string> NewsItemClickEvent { get; set; }
 
     public TimeSpan ItemAge { get; set; }
 
@@ -76,8 +76,8 @@
         base.OnParametersSet();
     }
 
-    public async Task OnClick()
+    public async Task OnNewsClick()
     {
-        await NavigateToLink.InvokeAsync(Link);
+        await NewsItemClickEvent.InvokeAsync(Link);
     }
 }

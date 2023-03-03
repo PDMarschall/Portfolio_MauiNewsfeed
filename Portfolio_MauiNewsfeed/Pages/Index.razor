@@ -1,8 +1,9 @@
 ﻿@page "/"
 
-
 <TabControl>
-  <TabPage Text="Indland">
+  <TabPage Text="Seneste Nyt">
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/senestenyt" />
+  </TabPage>  <TabPage Text="Indland">
         <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland"/>
   </TabPage>
     <TabPage Text="Udland">
@@ -11,18 +12,7 @@
     <TabPage Text="Penge">
         <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/penge" />
     </TabPage>
-    <TabPage Text="Politik">
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/politik" />
-    </TabPage>
-    <TabPage Text="Sporten">
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/sporten" />
-    </TabPage>
-    <TabPage Text="Viden">
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/viden" />
-    </TabPage>
 </TabControl>
-
-
 
 
 @code {
