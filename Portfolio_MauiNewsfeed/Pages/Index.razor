@@ -1,6 +1,5 @@
 ﻿@page "/"
 
-<div class="align-content-center">
 <TabControl>
     <TabPage Text="Seneste Nyt">
         <br />
@@ -8,7 +7,7 @@
     </TabPage>  
     <TabPage Text="Indland">
             <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland" />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland" Whitelist="UserWhitelist" Blacklist="UserBlacklist"/>
     </TabPage>
     <TabPage Text="Udland">
             <br />
@@ -19,7 +18,6 @@
         <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/penge" />
     </TabPage>
 </TabControl>
-</div>
 
 @code {
 

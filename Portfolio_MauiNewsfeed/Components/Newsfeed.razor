@@ -3,20 +3,20 @@
 @inject NavigationManager navigationManager
 
 <br />
-@if (Feed != null)
+@if (_feed != null)
 {
     if (Blacklist.Count() > 0 || Whitelist.Count() > 0)
     {
-        foreach (SyndicationItem item in FilteredFeed.Items)
+        foreach (SyndicationItem item in _filteredFeed.Items)
         {
-            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate" NewsItemClickEvent="NavigateToNewsfeedItem" />
+            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate"/>
         }
     }
     else
     {
-        foreach (SyndicationItem item in Feed.Items)
+        foreach (SyndicationItem item in _feed.Items)
         {
-            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate" NewsItemClickEvent="NavigateToNewsfeedItem" />
+            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate"/>
         }
     }
 }
@@ -32,37 +32,41 @@
     [Parameter]
     public List<string> Blacklist { get; set; } = new List<string>();
 
-    public SyndicationFeed Feed { get; set; }
-    public SyndicationFeed FilteredFeed { get; set; }
+    private SyndicationFeed _feed;
+    private SyndicationFeed _filteredFeed;
 
     protected override Task OnParametersSetAsync()
     {
-        XmlReader reader = XmlReader.Create(FeedUrl);
-        Feed = SyndicationFeed.Load(reader);
+        LoadFeed();
+        InitializeNullEntries();
+        ApplyFilter();
 
-        foreach (SyndicationItem item in Feed.Items)
+        return base.OnParametersSetAsync();
+    }
+
+    public void LoadFeed()
+    {
+        XmlReader reader = XmlReader.Create(FeedUrl);
+        _feed = SyndicationFeed.Load(reader);
+    }
+
+    public void InitializeNullEntries()
+    {
+        foreach (SyndicationItem item in _feed.Items)
         {
             if (item.Summary == null)
             {
                 item.Summary = new TextSyndicationContent("");
             }
         }
-        ApplyFilter();
-
-        return base.OnParametersSetAsync();
-    }
-
-    public void NavigateToNewsfeedItem(string url)
-    {
-        navigationManager.NavigateTo(url);
     }
 
     public void ApplyFilter()
     {
         if (Whitelist.Count() > 0 || Blacklist.Count() > 0)
         {
-            FilteredFeed = Feed;
-            FilteredFeed.Items = Feed.Items.Where(x =>
+            _filteredFeed = _feed;
+            _filteredFeed.Items = _feed.Items.Where(x =>
                 Whitelist.Any(searchTerm => x.Title.Text.ToLower().Contains(searchTerm.ToLower()))
                 &&
                 !Blacklist.Any(searchTerm => x.Title.Text.ToLower().Contains(searchTerm.ToLower())));

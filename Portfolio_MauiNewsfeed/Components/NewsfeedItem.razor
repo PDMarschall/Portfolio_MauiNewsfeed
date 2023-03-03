@@ -1,49 +1,15 @@
-﻿<div class="card" @ondblclick="OnNewsClick">
-    <h3>
-        @Title
-    </h3>
-    <p>
-        @Description
-    </p>
-    @if (PublicationDate != null)
-    {
-        if (ItemAge.TotalSeconds < 60)
-        {
-            <p>
-                Posted less than a minute ago.
-            </p>
-        }
-        else if (ItemAge.TotalMinutes < 60)
-        {
-            <p>
-                Posted @Math.Floor(ItemAge.TotalMinutes) minutes ago.
-            </p>
-        }
-        else if (ItemAge.TotalHours < 2)
-        {
-            <p>
-                Posted @Math.Floor(ItemAge.TotalHours) hour ago.
-            </p>
-        }
-        else if (ItemAge.TotalHours < 24)
-        {
-            <p>
-                Posted @Math.Floor(ItemAge.TotalHours) hours ago.
-            </p>
-        }
-        else if (ItemAge.TotalHours < 48)
-        {
-            <p>
-                Posted @Math.Floor(ItemAge.TotalDays) day ago.
-            </p>
-        }
-        else
-        {
-            <p>
-                Posted @Math.Floor(ItemAge.TotalDays) days ago.
-            </p>
-        }
-    }
+﻿<div class="card">
+    <div class="card-body">
+        <h4>
+            @Title
+        </h4>
+        <div class="card-title">
+            @Description
+        </div>
+        <div class="card-text text-muted font-italic">
+            @ItemAgeMessage
+        </div>
+    </div>
 </div>
 <br />
 
@@ -64,16 +30,30 @@
     [Parameter]
     public EventCallback<string> NewsItemClickEvent { get; set; }
 
-    public TimeSpan ItemAge { get; set; }
+    public string ItemAgeMessage { get; set; }
 
     protected override void OnParametersSet()
     {
         if (PublicationDate != null)
-        {
-            ItemAge = DateTimeOffset.Now - PublicationDate.Value;
-        }
+            ItemAgeMessage = SetItemAgeMessage(DateTimeOffset.Now - PublicationDate.Value);
 
         base.OnParametersSet();
+    }
+
+    public string SetItemAgeMessage(TimeSpan itemAge)
+    {
+        if (itemAge.TotalSeconds < 60)
+            return "Mindre end et minut siden.";
+        else if (itemAge.TotalMinutes < 60)
+            return $"{Math.Floor(itemAge.TotalMinutes)} minutter siden.";
+        else if (itemAge.TotalHours < 2)
+            return $"{Math.Floor(itemAge.TotalHours)} time siden.";
+        else if (itemAge.TotalHours < 24)
+            return $"{Math.Floor(itemAge.TotalHours)} timer siden.";
+        else if (itemAge.TotalHours < 48)
+            return $"{Math.Floor(itemAge.TotalDays)} dag siden.";
+        else
+            return $"{Math.Floor(itemAge.TotalDays)} dage siden.";
     }
 
     public async Task OnNewsClick()
