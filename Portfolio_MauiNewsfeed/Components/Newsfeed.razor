@@ -1,11 +1,22 @@
 ﻿@using System.ServiceModel.Syndication;
 @using System.Xml;
+@inject NavigationManager navigationManager
 
 @if (Feed != null)
 {
-    foreach (SyndicationItem item in Feed.Items)
+    if (Blacklist.Count() > 0 || Whitelist.Count() > 0)
     {
-        <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate" />
+        foreach (SyndicationItem item in FilteredFeed.Items)
+        {
+            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate" NavigateToLink="NavigateToNewsfeedItem" />
+        }
+    }
+    else
+    {
+        foreach (SyndicationItem item in Feed.Items)
+        {
+            <NewsfeedItem Title="@item.Title.Text" Description="@item.Summary.Text" Link="@item.Links.FirstOrDefault().Uri.ToString()" PublicationDate="@item.PublishDate" NavigateToLink="NavigateToNewsfeedItem" />
+        }
     }
 }
 
@@ -14,7 +25,14 @@
     [Parameter]
     public string FeedUrl { get; set; }
 
+    [Parameter]
+    public List<string> Whitelist { get; set; } = new List<string>();
+
+    [Parameter]
+    public List<string> Blacklist { get; set; } = new List<string>();
+
     public SyndicationFeed Feed { get; set; }
+    public SyndicationFeed FilteredFeed { get; set; }
 
     protected override Task OnParametersSetAsync()
     {
@@ -28,7 +46,25 @@
                 item.Summary = new TextSyndicationContent("");
             }
         }
+        ApplyFilter();
 
         return base.OnParametersSetAsync();
+    }
+
+    public void NavigateToNewsfeedItem(string url)
+    {
+        navigationManager.NavigateTo(url);
+    }
+
+    public void ApplyFilter()
+    {
+        if (Whitelist.Count() > 0 || Blacklist.Count() > 0)
+        {
+            FilteredFeed = Feed;
+            FilteredFeed.Items = Feed.Items.Where(x =>
+                Whitelist.Any(searchTerm => x.Title.Text.ToLower().Contains(searchTerm.ToLower()))
+                &&
+                !Blacklist.Any(searchTerm => x.Title.Text.ToLower().Contains(searchTerm.ToLower())));
+        }
     }
 }
