@@ -1,9 +1,22 @@
 ﻿@page "/"
 
 
-<Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland" />
+<TabControl>
+  <TabPage Text="Indland">
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland" Blacklist="UserBlacklist" Whitelist="UserWhitelist" />
+  </TabPage>
+    <TabPage Text="Udland">
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/udland"/>
+    </TabPage>
+</TabControl>
+
+
 
 
 @code {
+
+    public List<string> UserBlacklist { get; set; } = new List<string> { "skal" };
+
+    public List<string> UserWhitelist { get; set; } = new List<string> { "unge" };
 
 }
