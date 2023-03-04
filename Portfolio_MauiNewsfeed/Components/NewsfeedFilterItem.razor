@@ -24,6 +24,7 @@
 </div>
 
 @code {
+
     [Parameter]
     public NewsfeedFilter Filter { get; set; }
 
@@ -39,9 +40,8 @@
             Preferences.Set("ActiveFilter", Filter.Title);
             OnSelectFilter.InvokeAsync(Filter);
         }
-        else
-        {
-            Preferences.Set("ActiveFilter", "None");
-        }
+        else        
+            Preferences.Set("ActiveFilter", "None");        
     }
+
 }

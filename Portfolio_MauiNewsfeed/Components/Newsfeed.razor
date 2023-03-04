@@ -1,7 +1,7 @@
 ﻿@using System.ServiceModel.Syndication;
 @using System.Xml;
 @inject NavigationManager navigationManager
-
+<p class="text-danger">@_errorMessage</p>
 <br />
 @if (_feed != null)
 {
@@ -37,6 +37,7 @@
 
     private SyndicationFeed _feed;
     private SyndicationFeed _filteredFeed;
+    private string _errorMessage;
 
     protected override Task OnParametersSetAsync()
     {
@@ -44,18 +45,30 @@
         Blacklist ??= new List<string>();
 
         LoadFeed();
-        InitializeNullEntries();
 
-        if (IsFiltered)
-            ApplyFilter();
+        if (_feed != null)
+        {
+            InitializeNullEntries();
+
+            if (IsFiltered)
+                ApplyFilter();
+        }
 
         return base.OnParametersSetAsync();
     }
 
     public void LoadFeed()
     {
-        XmlReader reader = XmlReader.Create(FeedUrl);
-        _feed = SyndicationFeed.Load(reader);
+        try
+        {
+            XmlReader reader = XmlReader.Create(FeedUrl);
+            _feed = SyndicationFeed.Load(reader);
+        }
+        catch (Exception e)
+        {
+            _errorMessage = $"There was a problem loading the feed: {e.Message}";
+        }
+
     }
 
     public void InitializeNullEntries()
