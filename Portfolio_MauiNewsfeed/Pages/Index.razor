@@ -5,33 +5,35 @@
 <TabControl>
     <TabPage Text="Seneste Nyt">
         <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/senestenyt" IsFiltered="newsfeedSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/senestenyt" IsFiltered="EnableFilter" Whitelist="Whitelist" Blacklist="Blacklist" />
     </TabPage>
     <TabPage Text="Indland">
         <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland" IsFiltered="newsfeedSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland" IsFiltered="EnableFilter" Whitelist="Whitelist" Blacklist="Blacklist" />
     </TabPage>
     <TabPage Text="Udland">
         <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/udland" IsFiltered="newsfeedSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/udland" IsFiltered="EnableFilter" Whitelist="Whitelist" Blacklist="Blacklist" />
     </TabPage>
     <TabPage Text="Penge">
         <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/penge" IsFiltered="newsfeedSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/penge" IsFiltered="EnableFilter" Whitelist="Whitelist" Blacklist="Blacklist" />
     </TabPage>
 </TabControl>
 
 @code {
 
+    public bool EnableFilter { get; set; }
     public List<string> Whitelist { get; set; }
     public List<string> Blacklist { get; set; }
 
     protected override void OnParametersSet()
     {
+        EnableFilter = newsfeedSettings.EnableFilter;
         Whitelist ??= new List<string>();
         Blacklist ??= new List<string>();
 
-        if (newsfeedSettings.FilterFeeds)
+        if (newsfeedSettings.EnableFilter)
         {
             Whitelist.AddRange(newsfeedSettings.UserWhitelist);
             Blacklist.AddRange(newsfeedSettings.UserBlacklist);

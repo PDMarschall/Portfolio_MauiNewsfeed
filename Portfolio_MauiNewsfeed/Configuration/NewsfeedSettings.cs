@@ -8,9 +8,9 @@ namespace Portfolio_MauiNewsfeed.Configuration
 {
     public class NewsfeedSettings
     {
-        public bool FilterFeeds { get; set; }
+        public bool EnableFilter { get; set; }
 
-        public List<string> UserWhitelist { get; set; } = new List<string> { };
+        public List<string> UserWhitelist { get; set; } = new List<string> { "den" };
         public List<string> UserBlacklist { get; set; } = new List<string> { };
     }
 }
