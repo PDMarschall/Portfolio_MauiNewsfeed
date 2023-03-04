@@ -1,6 +1,6 @@
 ﻿@using Portfolio_MauiNewsfeed.Configuration;
 
-<div class="card">
+<div class="card" @onclick="SelectFilter">
     <div class="card-body">
         @Filter.Title
     </div>
@@ -17,4 +17,8 @@
     [Parameter]
     public EventCallback<NewsfeedFilter> OnSelectFilter { get; set; }
 
+    public void SelectFilter()
+    {
+        OnSelectFilter.InvokeAsync(Filter);
+    }
 }
