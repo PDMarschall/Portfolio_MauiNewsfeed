@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Portfolio_MauiNewsfeed.Configuration
 {
-    public class UserSettings
+    public class NewsfeedSettings
     {
         public bool FilterFeeds { get; set; }
 

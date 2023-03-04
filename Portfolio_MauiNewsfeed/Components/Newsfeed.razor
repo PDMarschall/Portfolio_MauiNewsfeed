@@ -61,18 +61,12 @@
     public void InitializeNullEntries()
     {
         foreach (SyndicationItem item in _feed.Items)
-        {
             if (item.Summary == null)
-            {
-                item.Summary = new TextSyndicationContent("");
-            }
-        }
+                item.Summary ??= new TextSyndicationContent("");
     }
 
     public void ApplyFilter()
     {
-
-
         if (Whitelist.Count() > 0 || Blacklist.Count() > 0)
         {
             _filteredFeed = _feed;

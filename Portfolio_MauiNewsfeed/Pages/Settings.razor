@@ -1,15 +1,19 @@
 ﻿@page "/settings"
 @using Portfolio_MauiNewsfeed.Configuration;
-@inject UserSettings userSettings
+@inject NewsfeedSettings newsfeedSettings
 
 <h3>Settings</h3>
+<div class="card">
+    <br />
+    <div class="card-text text-right">
+        Toggle Feed Filter <ToggleSwitch Value="newsfeedSettings.FilterFeeds" ValueChanged="ToggleFilter"></ToggleSwitch>
+    </div>
 
-Toggle Feed Filter <ToggleSwitch Value="userSettings.FilterFeeds" ValueChanged="ToggleFilter"></ToggleSwitch> 
-
-@code{
+</div>
+@code {
 
     public void ToggleFilter(bool toggle)
     {
-        userSettings.FilterFeeds = toggle;
+        newsfeedSettings.FilterFeeds = toggle;
     }
 }

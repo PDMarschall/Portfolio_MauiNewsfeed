@@ -1,38 +1,55 @@
 ﻿@page "/"
 @using Portfolio_MauiNewsfeed.Configuration;
-@inject UserSettings userSettings
+@inject NewsfeedSettings newsfeedSettings
 
 <TabControl>
     <TabPage Text="Seneste Nyt">
         <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/senestenyt" IsFiltered="userSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
-    </TabPage>  
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/senestenyt" IsFiltered="newsfeedSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
+    </TabPage>
     <TabPage Text="Indland">
-            <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland" IsFiltered="userSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
+        <br />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland" IsFiltered="newsfeedSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
     </TabPage>
     <TabPage Text="Udland">
-            <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/udland" IsFiltered="userSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
+        <br />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/udland" IsFiltered="newsfeedSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
     </TabPage>
     <TabPage Text="Penge">
-            <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/penge" IsFiltered="userSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
+        <br />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/penge" IsFiltered="newsfeedSettings.FilterFeeds" Whitelist="Whitelist" Blacklist="Blacklist" />
     </TabPage>
 </TabControl>
 
 @code {
+
     public List<string> Whitelist { get; set; }
     public List<string> Blacklist { get; set; }
 
     protected override void OnParametersSet()
     {
-        if (userSettings.FilterFeeds)
+        Whitelist ??= new List<string>();
+        Blacklist ??= new List<string>();
+
+        if (newsfeedSettings.FilterFeeds)
         {
-            Whitelist = userSettings.UserWhitelist;
-            Blacklist = userSettings.UserBlacklist;
+            Whitelist.AddRange(newsfeedSettings.UserWhitelist);
+            Blacklist.AddRange(newsfeedSettings.UserBlacklist);
+        }
+        else
+        {
+            Whitelist.Clear();
+            Blacklist.Clear();
         }
 
+        Test();
+
         base.OnParametersSet();
+    }
+
+    public void Test()
+    {
+        SettingsService test = new SettingsService();
+        test.SaveNewsfeedSettings();
     }
 }
