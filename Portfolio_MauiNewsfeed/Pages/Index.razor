@@ -5,43 +5,43 @@
 <TabControl>
     <TabPage Text="Seneste Nyt">
         <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/senestenyt" IsFiltered="EnableFilter" Whitelist="Whitelist" Blacklist="Blacklist" />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/senestenyt" IsFiltered="_enableFilter" Whitelist="_whitelist" Blacklist="_blacklist" />
     </TabPage>
     <TabPage Text="Indland">
         <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland" IsFiltered="EnableFilter" Whitelist="Whitelist" Blacklist="Blacklist" />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/indland" IsFiltered="_enableFilter" Whitelist="_whitelist" Blacklist="_blacklist" />
     </TabPage>
     <TabPage Text="Udland">
         <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/udland" IsFiltered="EnableFilter" Whitelist="Whitelist" Blacklist="Blacklist" />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/udland" IsFiltered="_enableFilter" Whitelist="_whitelist" Blacklist="_blacklist" />
     </TabPage>
     <TabPage Text="Penge">
         <br />
-        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/penge" IsFiltered="EnableFilter" Whitelist="Whitelist" Blacklist="Blacklist" />
+        <Newsfeed FeedUrl="https://www.dr.dk/nyheder/service/feeds/penge" IsFiltered="_enableFilter" Whitelist="_whitelist" Blacklist="_blacklist" />
     </TabPage>
 </TabControl>
 
 @code {
 
-    public bool EnableFilter { get; set; }
-    public List<string> Whitelist { get; set; }
-    public List<string> Blacklist { get; set; }
+    private bool _enableFilter;
+    private List<string> _whitelist { get; set; }
+    private List<string> _blacklist { get; set; }
 
     protected override void OnParametersSet()
     {
-        EnableFilter = newsfeedSettings.EnableFilter;
-        Whitelist ??= new List<string>();
-        Blacklist ??= new List<string>();
+        _enableFilter = Preferences.Get("EnableFilter", false);
+        _whitelist ??= new List<string>();
+        _blacklist ??= new List<string>();
 
-        if (newsfeedSettings.EnableFilter)
+        if (_enableFilter)
         {
-            Whitelist.AddRange(newsfeedSettings.UserWhitelist);
-            Blacklist.AddRange(newsfeedSettings.UserBlacklist);
+            _whitelist.AddRange(newsfeedSettings.UserWhitelist);
+            _blacklist.AddRange(newsfeedSettings.UserBlacklist);
         }
         else
         {
-            Whitelist.Clear();
-            Blacklist.Clear();
+            _whitelist.Clear();
+            _blacklist.Clear();
         }
 
         base.OnParametersSet();

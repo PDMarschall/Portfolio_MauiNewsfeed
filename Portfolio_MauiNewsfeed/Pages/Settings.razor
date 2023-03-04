@@ -6,7 +6,7 @@
 <div class="card">
     <br />
     <div class="card-text text-right">
-        Toggle Feed Filter <ToggleSwitch Value="newsfeedSettings.EnableFilter" ValueChanged="ToggleFilter"></ToggleSwitch>
+        Toggle Feed Filter <ToggleSwitch Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter"></ToggleSwitch>
     </div>
 
 </div>
@@ -14,6 +14,6 @@
 
     public void ToggleFilter(bool toggle)
     {
-        newsfeedSettings.EnableFilter = toggle;        
+        Preferences.Set("EnableFilter", toggle);
     }
 }

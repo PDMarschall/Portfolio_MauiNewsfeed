@@ -22,7 +22,9 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
-        builder.Services.AddSingleton<NewsfeedSettings>();        
+        builder.Services.AddSingleton<NewsfeedSettings>();
+
+        Preferences.Clear();
 
         return builder.Build();
     }
