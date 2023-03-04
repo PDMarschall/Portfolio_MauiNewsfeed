@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Portfolio_MauiNewsfeed.Configuration
 {
-    public class NewsfeedSettings
+    public class NewsfeedFilter
     {
-        public List<string> UserWhitelist { get; set; } = new List<string> { "den" };
+        public string Title { get; set; }
+        public List<string> UserWhitelist { get; set; } = new List<string> { };
         public List<string> UserBlacklist { get; set; } = new List<string> { };
     }
 }

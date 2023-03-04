@@ -1,6 +1,6 @@
 ﻿@page "/"
 @using Portfolio_MauiNewsfeed.Configuration;
-@inject NewsfeedSettings newsfeedSettings
+@inject NewsfeedFilter newsfeedFilter
 
 <TabControl>
     <TabPage Text="Seneste Nyt">
@@ -35,8 +35,8 @@
 
         if (_enableFilter)
         {
-            _whitelist.AddRange(newsfeedSettings.UserWhitelist);
-            _blacklist.AddRange(newsfeedSettings.UserBlacklist);
+            _whitelist.AddRange(newsfeedFilter.UserWhitelist);
+            _blacklist.AddRange(newsfeedFilter.UserBlacklist);
         }
         else
         {
