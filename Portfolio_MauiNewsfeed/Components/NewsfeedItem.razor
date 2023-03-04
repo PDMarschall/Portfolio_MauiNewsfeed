@@ -7,7 +7,7 @@
             @Description
         </div>
         <div class="card-text text-muted font-italic">
-            @ItemAgeMessage
+            @_itemAgeMessage
         </div>
     </div>
 </div>
@@ -27,15 +27,12 @@
     [Parameter]
     public DateTimeOffset? PublicationDate { get; set; }
 
-    [Parameter]
-    public EventCallback<string> NewsItemClickEvent { get; set; }
-
-    public string ItemAgeMessage { get; set; }
+    private string _itemAgeMessage;
 
     protected override void OnParametersSet()
     {
         if (PublicationDate != null)
-            ItemAgeMessage = SetItemAgeMessage(DateTimeOffset.Now - PublicationDate.Value);
+            _itemAgeMessage = SetItemAgeMessage(DateTimeOffset.Now - PublicationDate.Value);
 
         base.OnParametersSet();
     }
@@ -54,10 +51,5 @@
             return $"{Math.Floor(itemAge.TotalDays)} dag siden.";
         else
             return $"{Math.Floor(itemAge.TotalDays)} dage siden.";
-    }
-
-    public async Task OnNewsClick()
-    {
-        await NewsItemClickEvent.InvokeAsync(Link);
     }
 }

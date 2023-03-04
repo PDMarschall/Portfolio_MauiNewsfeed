@@ -33,7 +33,7 @@
         _whitelist ??= new List<string>();
         _blacklist ??= new List<string>();
 
-        if (_enableFilter)
+        if (_enableFilter && Preferences.Get("ActiveFilter", "None") != "None")
         {
             _whitelist.AddRange(newsfeedFilter.UserWhitelist);
             _blacklist.AddRange(newsfeedFilter.UserBlacklist);

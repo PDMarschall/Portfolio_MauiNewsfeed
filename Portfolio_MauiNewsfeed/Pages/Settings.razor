@@ -15,7 +15,7 @@
     <div>
         <br />
         <div class="card-text d-flex justify-content-around">
-            Toggle Newsfeed Filter <ToggleSwitch Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter"></ToggleSwitch>
+            Toggle Newsfeed Filtering <ToggleSwitch Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter"></ToggleSwitch>
         </div>
         <br />
         @if (NewsfeedFilters != null)
@@ -38,15 +38,31 @@
         Preferences.Set("EnableFilter", toggle);
     }
 
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
         NewsfeedFilters = filterService.GetAllNewsfeedFilters();
+        var activeFilterTitle = Preferences.Get("ActiveFilter", "None");
+
+        if (activeFilterTitle != "None")
+        {
+            newsfeedFilter.CopyFilterValues(NewsfeedFilters.Where(x => x.Title == activeFilterTitle).First());
+        }
+
+        base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        NewsfeedFilters ??= filterService.GetAllNewsfeedFilters();
         base.OnParametersSet();
     }
 
     public void SetFilter(NewsfeedFilter filter)
     {
-        newsfeedFilter.Clear();        
+        if (Preferences.Get("ActiveFilter", "None") == filter.Title)
+        {
+            newsfeedFilter.Clear();
+        }
         newsfeedFilter.CopyFilterValues(filter);
     }
 }

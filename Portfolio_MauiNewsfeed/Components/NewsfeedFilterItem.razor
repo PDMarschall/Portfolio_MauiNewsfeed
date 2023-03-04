@@ -1,24 +1,47 @@
 ﻿@using Portfolio_MauiNewsfeed.Configuration;
+@inject NewsfeedFilter newsfeedFilter
 
 <div class="card" @onclick="SelectFilter">
-    <div class="card-body">
+    <div class="card-body @(this.IsActive ? "font-weight-bold": "font-weight-normal")">
         @Filter.Title
+    </div>
+    <div>
+        Whitelisted words:
+        @foreach (string word in Filter.UserWhitelist)
+        {
+            @word
+            ;
+        }
+    </div>
+    <div>
+        Blacklisted words:
+        @foreach (string word in Filter.UserBlacklist)
+        {
+            @word
+            ;
+        }
     </div>
 </div>
 
 @code {
-
     [Parameter]
     public NewsfeedFilter Filter { get; set; }
 
-    [Parameter]
-    public bool IsActive { get; set; }
+    public bool IsActive => this.Filter.Title == Preferences.Get("ActiveFilter", "None");
 
     [Parameter]
     public EventCallback<NewsfeedFilter> OnSelectFilter { get; set; }
 
     public void SelectFilter()
     {
-        OnSelectFilter.InvokeAsync(Filter);
+        if (!IsActive)
+        {
+            Preferences.Set("ActiveFilter", Filter.Title);
+            OnSelectFilter.InvokeAsync(Filter);
+        }
+        else
+        {
+            Preferences.Set("ActiveFilter", "None");
+        }
     }
 }
