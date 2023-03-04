@@ -42,14 +42,7 @@
             Blacklist.Clear();
         }
 
-        Test();
-
         base.OnParametersSet();
     }
 
-    public void Test()
-    {
-        SettingsService test = new SettingsService();
-        test.SaveNewsfeedSettings();
-    }
 }

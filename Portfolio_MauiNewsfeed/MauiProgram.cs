@@ -1,31 +1,29 @@
 ﻿using Microsoft.Extensions.Logging;
 using Portfolio_MauiNewsfeed.Configuration;
-using Portfolio_MauiNewsfeed.Data;
 
 namespace Portfolio_MauiNewsfeed;
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
-	{
-		var builder = MauiApp.CreateBuilder();
-		builder
-			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
-			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-			});
+    public static MauiApp CreateMauiApp()
+    {
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+            });
 
-		builder.Services.AddMauiBlazorWebView();
+        builder.Services.AddMauiBlazorWebView();
 
 #if DEBUG
-		builder.Services.AddBlazorWebViewDeveloperTools();
-		builder.Logging.AddDebug();
+        builder.Services.AddBlazorWebViewDeveloperTools();
+        builder.Logging.AddDebug();
 #endif
 
-		builder.Services.AddSingleton<WeatherForecastService>();
-		builder.Services.AddSingleton<NewsfeedSettings>();	
+        builder.Services.AddSingleton<NewsfeedSettings>();
 
-		return builder.Build();
-	}
+        return builder.Build();
+    }
 }
