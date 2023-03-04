@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kotlin.Jvm.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,9 @@ namespace Portfolio_MauiNewsfeed.Configuration
             string json = JsonSerializer.Serialize(temp);
 
             // Get the directory where the executing assembly is located
-            string assemblyDirectory = "C:\\Users\\PDMar\\source\\repos\\Portfolio_MauiNewsfeed\\Portfolio_MauiNewsfeed\\newsfeedSettings.json";
+            string assemblyDirectory = System.IO.Path.Combine(FileSystem.AppDataDirectory,"myfile.txt");
+
+            string filepath = Path.Combine(assemblyDirectory, "newsfeedSettings.json");
 
             // Combine the directory and filename to get the full filepath
 
