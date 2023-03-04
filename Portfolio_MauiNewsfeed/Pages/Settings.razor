@@ -1,21 +1,45 @@
 ﻿@page "/settings"
 @using Portfolio_MauiNewsfeed.Configuration;
-@inject NewsfeedFilter newsfeedFilter
+@using System.Text.Json;
+@using Portfolio_MauiNewsfeed.Services;
+@inject FilterService filterService
 
-<h3>Settings</h3>
+<h3 class="justify-content-around">Settings</h3>
 <div class="card settings-card">
+    <br>
+    <h4>
+        Filter Settings
+    </h4>
     <br />
-    <div class="card-text text-right">
-        Toggle Newsfeed Filter <ToggleSwitch Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter"></ToggleSwitch>
-    </div>
-    <br />
+    <div>
+        <br />
+        <div class="card-text d-flex justify-content-around">
+           Toggle Newsfeed Filter <ToggleSwitch Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter"></ToggleSwitch>
+        </div>
+        <br />
+        @if (NewsfeedFilters != null)
+        {
+            foreach (NewsfeedFilter filter in NewsfeedFilters)
+            {
+                <NewsfeedFilterItem Filter="filter" />
+            }
+        }
 
+    </div>
 </div>
+
 @code {
+
+    public IEnumerable<NewsfeedFilter> NewsfeedFilters { get; set; }
 
     public void ToggleFilter(bool toggle)
     {
         Preferences.Set("EnableFilter", toggle);
     }
 
+    protected override void OnParametersSet()
+    {
+        NewsfeedFilters = filterService.GetAllNewsfeedFilters();
+        base.OnParametersSet();
+    }
 }

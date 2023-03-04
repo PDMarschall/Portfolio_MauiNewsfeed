@@ -8,7 +8,7 @@ namespace Portfolio_MauiNewsfeed.Configuration
 {
     public class NewsfeedFilter
     {
-        public string Title { get; set; }
+        public string Title { get; set; }        
         public List<string> UserWhitelist { get; set; } = new List<string> { };
         public List<string> UserBlacklist { get; set; } = new List<string> { };
     }

@@ -1,0 +1,20 @@
+﻿@using Portfolio_MauiNewsfeed.Configuration;
+
+<div class="card">
+    <div class="card-body">
+        @Filter.Title
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public NewsfeedFilter Filter { get; set; }
+
+    [Parameter]
+    public bool IsActive { get; set; }
+
+    [Parameter]
+    public EventCallback<NewsfeedFilter> OnSelectFilter { get; set; }
+
+}
