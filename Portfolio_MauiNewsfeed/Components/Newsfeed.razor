@@ -1,7 +1,7 @@
 ﻿@using System.ServiceModel.Syndication;
 @using System.Xml;
 @inject NavigationManager navigationManager
-<p class="text-danger">@_errorMessage</p>
+<p class="text-danger font-weight-bold">@_errorMessage</p>
 <br />
 @if (_feed != null)
 {
@@ -66,9 +66,8 @@
         }
         catch (Exception e)
         {
-            _errorMessage = $"There was a problem loading the feed: {e.Message}";
+            _errorMessage = $"There was a problem loading the feed: {e.Message}.";
         }
-
     }
 
     public void InitializeNullEntries()

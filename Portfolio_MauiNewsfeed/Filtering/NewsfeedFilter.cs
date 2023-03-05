@@ -28,5 +28,7 @@ namespace Portfolio_MauiNewsfeed.Filtering
                 this.UserBlacklist = filter.UserBlacklist;
             }
         }
+
+
     }
 }

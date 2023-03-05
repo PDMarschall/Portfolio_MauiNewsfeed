@@ -27,11 +27,16 @@
     private List<string> _whitelist { get; set; }
     private List<string> _blacklist { get; set; }
 
+    protected override void OnInitialized()
+    {
+        _whitelist ??= new List<string>();
+        _blacklist ??= new List<string>();
+        base.OnInitialized();
+    }
+
     protected override void OnParametersSet()
     {
         _enableFilter = Preferences.Get("EnableFilter", false);
-        _whitelist ??= new List<string>();
-        _blacklist ??= new List<string>();
 
         if (_enableFilter && Preferences.Get("ActiveFilter", "None") != "None")
         {

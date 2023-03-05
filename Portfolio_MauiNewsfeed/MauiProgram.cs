@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Blazored.Modal;
+using Microsoft.Extensions.Logging;
 using Portfolio_MauiNewsfeed.Filtering;
 using Portfolio_MauiNewsfeed.Services;
 
@@ -20,6 +21,7 @@ public static class MauiProgram
 
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();
+        builder.Services.AddBlazoredModal();
         builder.Logging.AddDebug();
 #endif
 

@@ -3,21 +3,25 @@
 
 <div class="card" @onclick="SelectFilter">
     <div class="card-body @(this.IsActive ? "font-weight-bold": "font-weight-normal")">
-        @Filter.Title
-    </div>
-    <div>
-        Whitelisted words:
-        @foreach (string word in Filter.UserWhitelist)
-        {
-            @word;
-        }
-    </div>
-    <div>
-        Blacklisted words:
-        @foreach (string word in Filter.UserBlacklist)
-        {
-            @word;
-        }
+        <div class="card-text text-left justify-content-around">
+            @Filter.Title
+            <div class="card-text">
+                @if (Filter.UserWhitelist.Count > 0)
+                {
+                    <div>
+                        Whitelisted words: @String.Join(',', Filter.UserWhitelist)
+                    </div>
+                }
+            </div>
+            <div class="card-text">
+                @if (Filter.UserBlacklist.Count > 0)
+                {
+                    <div>
+                        Blacklisted words: @String.Join(',', Filter.UserBlacklist)
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
 

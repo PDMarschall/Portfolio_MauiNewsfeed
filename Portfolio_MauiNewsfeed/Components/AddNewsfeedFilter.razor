@@ -1,0 +1,38 @@
+﻿@using Portfolio_MauiNewsfeed.Filtering;
+
+<div>
+    <EditForm Model="newFilterInput" OnValidSubmit="SubmitForm">        
+        <label for="Title">Title</label>
+        <InputText @bind-Value="newFilterInput.Title" />
+
+        <label for="Whitelist">Whitelist:</label>
+        <InputText @bind-Value="newFilterInput.Whitelist" />
+
+        <label for="Blacklist">Blacklist:</label>
+        <InputText @bind-Value="newFilterInput.Blacklist" />
+
+        <button type="submit">Submit</button>
+        <button @onclick="Cancel">Cancel</button>
+    </EditForm>
+</div>
+
+@code {
+
+    private NewsfeedFilterInputModel newFilterInput = new NewsfeedFilterInputModel();
+    private NewsfeedFilter newFilter = new NewsfeedFilter();
+
+    [CascadingParameter] 
+    BlazoredModalInstance BlazoredModal { get; set; } = default!;
+    
+
+    private async Task SubmitForm()
+    {
+        newFilter = newFilterInput.ConvertInputModel();
+        await BlazoredModal.CloseAsync(ModalResult.Ok(newFilter));
+    }
+
+    private async Task Cancel() => await BlazoredModal.CancelAsync();
+
+}
+
+
