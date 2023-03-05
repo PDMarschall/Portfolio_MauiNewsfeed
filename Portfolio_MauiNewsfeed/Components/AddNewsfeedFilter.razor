@@ -23,12 +23,11 @@
 
     [CascadingParameter] 
     BlazoredModalInstance BlazoredModal { get; set; } = default!;
-    
 
     private async Task SubmitForm()
     {
         newFilter = newFilterInput.ConvertInputModel();
-        await BlazoredModal.CloseAsync(ModalResult.Ok(newFilter));
+        await BlazoredModal.CloseAsync(ModalResult.Ok(newFilter));        
     }
 
     private async Task Cancel() => await BlazoredModal.CancelAsync();

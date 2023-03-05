@@ -10,9 +10,9 @@ namespace Portfolio_MauiNewsfeed.Filtering
     {
         private char[] separators = { ' ', ',', '.', ';', ':', '?', '!' };
 
-        public string Title { get; set; }
-        public string Whitelist { get; set; }
-        public string Blacklist { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Whitelist { get; set; } = string.Empty;
+        public string Blacklist { get; set; } = string.Empty;
 
         public NewsfeedFilter ConvertInputModel()
         {

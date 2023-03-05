@@ -26,9 +26,10 @@
                     <NewsfeedFilterItem Filter="filter" OnSelectFilter="SetFilter" />
                 }
             }
-        </div>
-        <div>
-            <button type="button" class="btn btn-primary" @onclick="AddNewFilter">Add New Filter</button>
+            <p class="text-danger text-weight-bold">@_errorMessage</p>
+            <div>
+                <button type="button" class="btn btn-primary" @onclick="AddNewFilter">Add New Filter</button>
+            </div>
         </div>
     </div>
 </div>
@@ -38,6 +39,8 @@
     [CascadingParameter] public IModalService Modal { get; set; } = default!;
 
     public IEnumerable<NewsfeedFilter> NewsfeedFilterCollection { get; set; }
+
+    private string _errorMessage;
 
     protected override void OnInitialized()
     {
@@ -70,16 +73,19 @@
 
     private async Task AddNewFilter()
     {
+        _errorMessage = "";
         IModalReference filterModal = Modal.Show<AddNewsfeedFilter>("Add New Filter");
         ModalResult result = await filterModal.Result;
 
         if (result.Cancelled)
         {
-            Console.WriteLine("Modal was cancelled");
+            _errorMessage = "There was a problem adding your filter.";
         }
         else if (result.Confirmed)
         {
             NewsfeedFilter newFilter = (NewsfeedFilter)result.Data;
+            filterService.SaveNewsfeedFilter(newFilter);
+            OnParametersSet();
         }
     }
 }
