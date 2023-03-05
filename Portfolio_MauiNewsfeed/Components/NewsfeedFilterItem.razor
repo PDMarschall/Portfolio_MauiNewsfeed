@@ -9,16 +9,14 @@
         Whitelisted words:
         @foreach (string word in Filter.UserWhitelist)
         {
-            @word
-            ;
+            @word;
         }
     </div>
     <div>
         Blacklisted words:
         @foreach (string word in Filter.UserBlacklist)
         {
-            @word
-            ;
+            @word;
         }
     </div>
 </div>
@@ -40,8 +38,8 @@
             Preferences.Set("ActiveFilter", Filter.Title);
             OnSelectFilter.InvokeAsync(Filter);
         }
-        else        
-            Preferences.Set("ActiveFilter", "None");        
+        else
+            Preferences.Set("ActiveFilter", "None");
     }
 
 }

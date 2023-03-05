@@ -17,7 +17,7 @@
         <div class="card-text d-flex justify-content-around">
             Toggle Newsfeed Filtering <ToggleSwitch Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter"></ToggleSwitch>
         </div>
-        <div>
+        <div class="@(Preferences.Get("EnableFilter", false) == false ? "d-none" : "d-block")">
             <br />
             @if (NewsfeedFilterCollection != null)
             {
@@ -54,16 +54,12 @@
 
     protected override void OnParametersSet()
     {
-        NewsfeedFilterCollection ??= filterService.GetAllNewsfeedFilters();
+        NewsfeedFilterCollection = filterService.GetAllNewsfeedFilters();
         base.OnParametersSet();
     }
 
     public void SetFilter(NewsfeedFilter filter)
     {
-        if (Preferences.Get("ActiveFilter", "None") == filter.Title)
-        {
-            newsfeedFilter.Clear();
-        }
         newsfeedFilter.CopyFilterValues(filter);
     }
 
