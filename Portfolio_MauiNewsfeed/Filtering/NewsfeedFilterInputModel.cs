@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace Portfolio_MauiNewsfeed.Filtering
     {
         private char[] separators = { ' ', ',', '.', ';', ':', '?', '!' };
 
+        [Required(ErrorMessage = "Please input a title"), StringLength(1)]
         public string Title { get; set; } = string.Empty;
         public string Whitelist { get; set; } = string.Empty;
         public string Blacklist { get; set; } = string.Empty;

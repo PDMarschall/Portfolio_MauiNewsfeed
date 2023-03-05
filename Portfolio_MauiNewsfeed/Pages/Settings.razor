@@ -23,10 +23,9 @@
             {
                 foreach (NewsfeedFilter filter in NewsfeedFilterCollection)
                 {
-                    <NewsfeedFilterItem Filter="filter" OnSelectFilter="SetFilter" />
+                    <NewsfeedFilterItem Filter="filter" OnSelectFilter="SetFilter" OnDeleteFilter="DeleteFilter" OnEditFilter="EditFilter" />
                 }
             }
-            <p class="text-danger text-weight-bold">@_errorMessage</p>
             <div>
                 <button type="button" class="btn btn-primary" @onclick="AddNewFilter">Add New Filter</button>
             </div>
@@ -40,8 +39,6 @@
 
     public IEnumerable<NewsfeedFilter> NewsfeedFilterCollection { get; set; }
 
-    private string _errorMessage;
-
     protected override void OnInitialized()
     {
         NewsfeedFilterCollection = filterService.GetAllNewsfeedFilters();
@@ -49,7 +46,7 @@
 
         if (activeFilterTitle != "None")
         {
-            newsfeedFilter.CopyFilterValues(NewsfeedFilterCollection.Where(x => x.Title == activeFilterTitle).First());
+            newsfeedFilter.CopyFilterValues(NewsfeedFilterCollection.Where(x => x.Title == activeFilterTitle).FirstOrDefault());
         }
 
         base.OnInitialized();
@@ -71,17 +68,32 @@
         newsfeedFilter.CopyFilterValues(filter);
     }
 
-    private async Task AddNewFilter()
+    public async Task AddNewFilter()
     {
-        _errorMessage = "";
         IModalReference filterModal = Modal.Show<AddNewsfeedFilter>("Add New Filter");
         ModalResult result = await filterModal.Result;
 
-        if (result.Cancelled)
+        if (result.Confirmed)
         {
-            _errorMessage = "There was a problem adding your filter.";
+            NewsfeedFilter newFilter = (NewsfeedFilter)result.Data;
+            filterService.SaveNewsfeedFilter(newFilter);
+            OnParametersSet();
         }
-        else if (result.Confirmed)
+    }
+
+    public void DeleteFilter(NewsfeedFilter filter)
+    {
+        filterService.DeleteFilter(filter);
+        OnParametersSet();
+    }
+
+    public async Task EditFilter(NewsfeedFilter filter)
+    {
+        ModalParameters data = new ModalParameters().Add(nameof(AddNewsfeedFilter.Filter), filter);
+        IModalReference filterModal = Modal.Show<AddNewsfeedFilter>("Edit Filter", data);
+        ModalResult result = await filterModal.Result;
+
+        if (result.Confirmed)
         {
             NewsfeedFilter newFilter = (NewsfeedFilter)result.Data;
             filterService.SaveNewsfeedFilter(newFilter);

@@ -30,5 +30,11 @@ namespace Portfolio_MauiNewsfeed.Services
             var serializedData = JsonSerializer.Serialize(filter);
             File.WriteAllText(fileName, serializedData);
         }
+
+        public void DeleteFilter(NewsfeedFilter filter)
+        {
+            string fileName = Path.Combine(FileSystem.AppDataDirectory, filter.Title + "filter.json");
+            File.Delete(fileName);
+        }
     }
 }

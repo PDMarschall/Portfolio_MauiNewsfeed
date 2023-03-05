@@ -1,15 +1,17 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 
 <div>
-    <EditForm Model="newFilterInput" OnValidSubmit="SubmitForm">        
+    <EditForm Model="_filterInputModel" OnValidSubmit="SubmitForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary/>
         <label for="Title">Title</label>
-        <InputText @bind-Value="newFilterInput.Title" />
+        <InputText @bind-Value="_filterInputModel.Title" />
 
         <label for="Whitelist">Whitelist:</label>
-        <InputText @bind-Value="newFilterInput.Whitelist" />
+        <InputText @bind-Value="_filterInputModel.Whitelist" />
 
         <label for="Blacklist">Blacklist:</label>
-        <InputText @bind-Value="newFilterInput.Blacklist" />
+        <InputText @bind-Value="_filterInputModel.Blacklist" />
 
         <button type="submit">Submit</button>
         <button @onclick="Cancel">Cancel</button>
@@ -18,16 +20,24 @@
 
 @code {
 
-    private NewsfeedFilterInputModel newFilterInput = new NewsfeedFilterInputModel();
-    private NewsfeedFilter newFilter = new NewsfeedFilter();
+    private NewsfeedFilterInputModel _filterInputModel = new NewsfeedFilterInputModel();
+
+    [Parameter]
+    public NewsfeedFilter Filter { get; set; }
 
     [CascadingParameter] 
     BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+    }
+
     private async Task SubmitForm()
     {
-        newFilter = newFilterInput.ConvertInputModel();
-        await BlazoredModal.CloseAsync(ModalResult.Ok(newFilter));        
+        Filter ??= new NewsfeedFilter();
+        Filter = _filterInputModel.ConvertInputModel();
+        await BlazoredModal.CloseAsync(ModalResult.Ok(Filter));
     }
 
     private async Task Cancel() => await BlazoredModal.CancelAsync();
