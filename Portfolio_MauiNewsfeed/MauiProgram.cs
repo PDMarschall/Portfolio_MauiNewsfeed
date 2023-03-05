@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using Portfolio_MauiNewsfeed.Configuration;
+using Portfolio_MauiNewsfeed.Filtering;
 using Portfolio_MauiNewsfeed.Services;
 
 namespace Portfolio_MauiNewsfeed;

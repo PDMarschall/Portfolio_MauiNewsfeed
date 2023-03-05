@@ -1,5 +1,5 @@
 ﻿@page "/settings"
-@using Portfolio_MauiNewsfeed.Configuration;
+@using Portfolio_MauiNewsfeed.Filtering;
 @using System.Text.Json;
 @using Portfolio_MauiNewsfeed.Services;
 @inject NewsfeedFilter newsfeedFilter
@@ -17,21 +17,22 @@
         <div class="card-text d-flex justify-content-around">
             Toggle Newsfeed Filtering <ToggleSwitch Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter"></ToggleSwitch>
         </div>
-        <br />
-        @if (NewsfeedFilters != null)
-        {
-            foreach (NewsfeedFilter filter in NewsfeedFilters)
+        <div>
+            <br />
+            @if (NewsfeedFilterCollection != null)
             {
-                <NewsfeedFilterItem Filter="filter" OnSelectFilter="SetFilter" />
+                foreach (NewsfeedFilter filter in NewsfeedFilterCollection)
+                {
+                    <NewsfeedFilterItem Filter="filter" OnSelectFilter="SetFilter" />
+                }
             }
-        }
-
+        </div>
     </div>
 </div>
 
 @code {
 
-    public IEnumerable<NewsfeedFilter> NewsfeedFilters { get; set; }
+    public IEnumerable<NewsfeedFilter> NewsfeedFilterCollection { get; set; }
 
     public void ToggleFilter(bool toggle)
     {
@@ -40,12 +41,12 @@
 
     protected override void OnInitialized()
     {
-        NewsfeedFilters = filterService.GetAllNewsfeedFilters();
+        NewsfeedFilterCollection = filterService.GetAllNewsfeedFilters();
         var activeFilterTitle = Preferences.Get("ActiveFilter", "None");
 
         if (activeFilterTitle != "None")
         {
-            newsfeedFilter.CopyFilterValues(NewsfeedFilters.Where(x => x.Title == activeFilterTitle).First());
+            newsfeedFilter.CopyFilterValues(NewsfeedFilterCollection.Where(x => x.Title == activeFilterTitle).First());
         }
 
         base.OnInitialized();
@@ -53,7 +54,7 @@
 
     protected override void OnParametersSet()
     {
-        NewsfeedFilters ??= filterService.GetAllNewsfeedFilters();
+        NewsfeedFilterCollection ??= filterService.GetAllNewsfeedFilters();
         base.OnParametersSet();
     }
 
@@ -65,4 +66,5 @@
         }
         newsfeedFilter.CopyFilterValues(filter);
     }
+
 }

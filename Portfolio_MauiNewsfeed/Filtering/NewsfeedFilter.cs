@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Portfolio_MauiNewsfeed.Configuration
+namespace Portfolio_MauiNewsfeed.Filtering
 {
     public class NewsfeedFilter
     {

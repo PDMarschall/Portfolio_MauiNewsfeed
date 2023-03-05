@@ -1,4 +1,4 @@
-﻿using Portfolio_MauiNewsfeed.Configuration;
+﻿using Portfolio_MauiNewsfeed.Filtering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
