@@ -11,7 +11,7 @@ namespace Portfolio_MauiNewsfeed.Filtering
     {
         private char[] separators = { ' ', ',', '.', ';', ':', '?', '!' };
 
-        [Required(ErrorMessage = "Please input a title"), StringLength(1)]
+        [Required(ErrorMessage = "Please input a title"), MinLength(1)]
         public string Title { get; set; } = string.Empty;
         public string Whitelist { get; set; } = string.Empty;
         public string Blacklist { get; set; } = string.Empty;

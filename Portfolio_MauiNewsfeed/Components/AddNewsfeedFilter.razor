@@ -3,18 +3,23 @@
 <div>
     <EditForm Model="_filterInputModel" OnValidSubmit="SubmitForm">
         <DataAnnotationsValidator />
-        <ValidationSummary/>
-        <label for="Title">Title</label>
-        <InputText @bind-Value="_filterInputModel.Title" />
-
-        <label for="Whitelist">Whitelist:</label>
-        <InputText @bind-Value="_filterInputModel.Whitelist" />
-
-        <label for="Blacklist">Blacklist:</label>
-        <InputText @bind-Value="_filterInputModel.Blacklist" />
-
-        <button type="submit">Submit</button>
-        <button @onclick="Cancel">Cancel</button>
+        <ValidationSummary />
+        <ul class="list-unstyled">
+            <li>
+                <label for="Title">Title</label>
+                <InputText @bind-Value="_filterInputModel.Title" placeholder="Title"/>
+            </li>
+            <li>
+                <label for="Whitelist">Whitelist:</label>
+                <InputText @bind-Value="_filterInputModel.Whitelist" placeholder="Word, word, word..."/>
+            </li>
+            <li>
+                <label for="Blacklist">Blacklist:</label>
+                <InputText @bind-Value="_filterInputModel.Blacklist" placeholder="Word, word, word..."/>
+            </li>
+            <button type="submit">Submit</button>
+            <button @onclick="Cancel">Cancel</button>
+        </ul>
     </EditForm>
 </div>
 
@@ -25,7 +30,7 @@
     [Parameter]
     public NewsfeedFilter Filter { get; set; }
 
-    [CascadingParameter] 
+    [CascadingParameter]
     BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
     protected override void OnParametersSet()
