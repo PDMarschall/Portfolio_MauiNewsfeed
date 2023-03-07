@@ -2,14 +2,19 @@
 @using Portfolio_MauiNewsfeed.Services;
 
 <h1>Settings</h1>
-<div class="pt-5">    
-    <FilterSettingsToggle Id="FilterToggle" LabelTitle="Filter" LabelMessage="Toggles newsfeed filtering" Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter" />
-    <div class="@(Preferences.Get("EnableFilter", false) == false ? "d-none" : "d-block")">
-        <FilterSettingsFilterList/>
+<div class="card">
+    <div class="card-header">
+        Filter Settings
+    </div>
+    <div class="card-body">             
+        <FilterSettingsToggle Id="FilterToggle" LabelTitle="Filter" LabelMessage="Toggles newsfeed filtering" Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter" />
+        <div class="@(Preferences.Get("EnableFilter", false) == false ? "d-none" : "d-block")">
+            <FilterSettingsFilterList />
+        </div>
     </div>
 </div>
 
-@code {    
+@code {
 
     public void ToggleFilter(bool toggle)
     {
