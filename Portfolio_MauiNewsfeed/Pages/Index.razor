@@ -39,7 +39,9 @@
 
         if (activeFilterTitle != "None")
         {
-            newsfeedFilter.CopyFilterValues(filters.Where(x => x.Title == activeFilterTitle).FirstOrDefault());
+            var activeFilter = filters.Where(x => x.Title == activeFilterTitle).FirstOrDefault();
+            if (activeFilter != null)
+                newsfeedFilter.CopyFilterValues(activeFilter);
         }
 
         base.OnInitialized();
