@@ -11,7 +11,7 @@
             <FilterSettingsFilterListItem Filter="NewsfeedFilterCollection[i]" ListName="FilterList" Id="@("FilterList"+i)" OnSelectFilter="SetFilter" OnDeleteFilter="DeleteFilter" OnEditFilter="EditFilter"/>
         }
     }
-    <button type="button" class="btn btn-primary" @onclick="AddNewFilter">Add New Filter</button>
+    <button type="button" class="btn btn-outline-success" @onclick="AddNewFilter">Add New Filter</button>
 </div>
 
 @code {
