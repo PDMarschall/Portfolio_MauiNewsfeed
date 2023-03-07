@@ -1,7 +1,7 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 @using Portfolio_MauiNewsfeed.Services;
 @inject NewsfeedFilter newsfeedFilter
-@inject FilterService filterService
+@inject NewsfeedFilterService filterService
 
 <div class="list-group d-grid gap-2 border-0 w-auto">
     @if (NewsfeedFilterCollection != null)
@@ -46,7 +46,7 @@
 
     public async Task AddNewFilter()
     {
-        IModalReference filterModal = Modal.Show<AddNewsfeedFilter>("Add New Filter");
+        IModalReference filterModal = Modal.Show<FilterSettingsAddNewFilter>("Add New Filter");
         ModalResult result = await filterModal.Result;
 
         if (result.Confirmed)
@@ -65,8 +65,8 @@
 
     public async Task EditFilter(NewsfeedFilter filter)
     {
-        ModalParameters data = new ModalParameters().Add(nameof(AddNewsfeedFilter.Filter), filter);
-        IModalReference filterModal = Modal.Show<AddNewsfeedFilter>("Edit Filter", data);
+        ModalParameters data = new ModalParameters().Add(nameof(FilterSettingsAddNewFilter.Filter), filter);
+        IModalReference filterModal = Modal.Show<FilterSettingsAddNewFilter>("Edit Filter", data);
         ModalResult result = await filterModal.Result;
 
         if (result.Confirmed)

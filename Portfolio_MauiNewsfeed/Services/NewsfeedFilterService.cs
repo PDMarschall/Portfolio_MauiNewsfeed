@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Portfolio_MauiNewsfeed.Services
 {
-    public class FilterService
+    public class NewsfeedFilterService
     {
         public List<NewsfeedFilter> GetAllNewsfeedFilters()
         {

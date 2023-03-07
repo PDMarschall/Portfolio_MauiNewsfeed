@@ -26,7 +26,7 @@ public static class MauiProgram
 #endif
 
         builder.Services.AddSingleton<NewsfeedFilter>();
-        builder.Services.AddTransient<FilterService>();
+        builder.Services.AddTransient<NewsfeedFilterService>();
 
         return builder.Build();
     }

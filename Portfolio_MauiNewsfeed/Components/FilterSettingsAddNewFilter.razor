@@ -1,0 +1,67 @@
+﻿@using Portfolio_MauiNewsfeed.Filtering;
+
+<div>
+    <EditForm Model="_filterInputModel" OnValidSubmit="SubmitForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="row g-3 align-items-center">
+            <div>
+                <div class="col-auto">
+                    <label class="col-form-label" for="Title">Title</label>
+                </div>
+                <div class="col-auto">
+                    <InputText id="Title" class="form-control" @bind-Value="_filterInputModel.Title" />                    
+                </div>
+            </div>
+            <div>
+                <div class="col-auto">
+                    <label class="col-form-label" for="Whitelist">Whitelist:</label>
+                </div>
+                <div class="col-auto">
+                    <InputText id="Whitelist" class="form-control" @bind-Value="_filterInputModel.Whitelist" placeholder="Ord, ord, ord..." />
+                </div>
+            </div>
+            <div>
+                <div class="col-auto">
+                    <label class="col-form-label" for="Blacklist">Blacklist:</label>
+                </div>
+                <div class="col-auto">
+                    <InputText id="Blacklist" class="form-control" @bind-Value="_filterInputModel.Blacklist" placeholder="Ord, ord, ord..." />
+                </div>
+            </div>
+        </div>
+        <div class="button-container">
+            <button type="submit" class="btn btn-success gap-2">Submit</button>
+            <button @onclick="Cancel" class="btn btn-secondary">Cancel</button>
+        </div>
+    </EditForm>
+</div>
+
+
+@code {
+
+    private NewsfeedFilterInputModel _filterInputModel = new NewsfeedFilterInputModel();
+
+    [Parameter]
+    public NewsfeedFilter Filter { get; set; }
+
+    [CascadingParameter]
+    BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+    }
+
+    private async Task SubmitForm()
+    {
+        Filter ??= new NewsfeedFilter();
+        Filter = _filterInputModel.ConvertInputModel();
+        await BlazoredModal.CloseAsync(ModalResult.Ok(Filter));
+    }
+
+    private async Task Cancel() => await BlazoredModal.CancelAsync();
+
+}
+
+
