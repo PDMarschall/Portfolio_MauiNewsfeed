@@ -1,7 +1,8 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 @using Portfolio_MauiNewsfeed.Services;
 
-<div class="pt-5">
+<h1>Settings</h1>
+<div class="pt-5">    
     <FilterSettingsToggle Id="FilterToggle" LabelTitle="Filter" LabelMessage="Toggles newsfeed filtering" Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter" />
     <div class="@(Preferences.Get("EnableFilter", false) == false ? "d-none" : "d-block")">
         <FilterSettingsFilterList/>

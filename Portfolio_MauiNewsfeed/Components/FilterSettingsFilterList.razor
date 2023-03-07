@@ -3,7 +3,7 @@
 @inject NewsfeedFilter newsfeedFilter
 @inject NewsfeedFilterService filterService
 
-<div class="list-group d-grid gap-2 border-0 w-auto">
+<div class="list-group sub-list-group d-grid gap-2 border-0 w-auto">
     @if (NewsfeedFilterCollection != null)
     {
         for (int i = 0; i < NewsfeedFilterCollection.Count(); i++)

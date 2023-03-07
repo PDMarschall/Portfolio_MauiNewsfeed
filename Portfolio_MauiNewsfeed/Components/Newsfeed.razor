@@ -79,13 +79,13 @@
 
     public void ApplyFilter()
     {
-        if (Whitelist.Count() > 0 || Blacklist.Count() > 0)
+        if (Whitelist.Any() || Blacklist.Any())
         {
             _filteredFeed = _feed;
             _filteredFeed.Items = _feed.Items.Where(x =>
-                Whitelist.Any(searchTerm => x.Title.Text.ToLower().Contains(searchTerm.ToLower()))
+                (!Whitelist.Any() || Whitelist.Any(searchTerm => x.Title.Text.ToLower().Contains(searchTerm.ToLower())))
                 &&
-                !Blacklist.Any(searchTerm => x.Title.Text.ToLower().Contains(searchTerm.ToLower())));
+                (!Blacklist.Any() || Blacklist.Any(searchTerm => !x.Title.Text.ToLower().Contains(searchTerm.ToLower()))));
         }
     }
 }
