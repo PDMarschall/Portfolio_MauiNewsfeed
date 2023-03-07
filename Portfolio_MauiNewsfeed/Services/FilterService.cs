@@ -10,7 +10,7 @@ namespace Portfolio_MauiNewsfeed.Services
 {
     public class FilterService
     {
-        public IEnumerable<NewsfeedFilter> GetAllNewsfeedFilters()
+        public List<NewsfeedFilter> GetAllNewsfeedFilters()
         {
             List<NewsfeedFilter> filters = new List<NewsfeedFilter>();
             IEnumerable<string> filterFilenames = Directory.GetFiles(FileSystem.AppDataDirectory).Where(x => x.EndsWith("filter.json"));

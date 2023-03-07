@@ -1,0 +1,79 @@
+﻿@using Portfolio_MauiNewsfeed.Filtering;
+@using Portfolio_MauiNewsfeed.Services;
+@inject NewsfeedFilter newsfeedFilter
+@inject FilterService filterService
+
+<div class="list-group d-grid gap-2 border-0 w-auto">
+    @if (NewsfeedFilterCollection != null)
+    {
+        for (int i = 0; i < NewsfeedFilterCollection.Count(); i++)
+        {
+            <FilterSettingsFilterListItem Filter="NewsfeedFilterCollection[i]" ListName="FilterList" Id="@("FilterList"+i)" OnSelectFilter="SetFilter" />
+        }
+    }
+    <button type="button" class="btn btn-primary" @onclick="AddNewFilter">Add New Filter</button>
+</div>
+
+@code {
+
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+
+    public List<NewsfeedFilter> NewsfeedFilterCollection { get; set; }
+
+    protected override void OnInitialized()
+    {
+        NewsfeedFilterCollection = filterService.GetAllNewsfeedFilters();
+        string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
+
+        if (activeFilterTitle != "None")
+        {
+            newsfeedFilter.CopyFilterValues(NewsfeedFilterCollection.Where(x => x.Title == activeFilterTitle).FirstOrDefault());
+        }
+
+        base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        NewsfeedFilterCollection = filterService.GetAllNewsfeedFilters();
+        base.OnParametersSet();
+    }
+
+    public void SetFilter(NewsfeedFilter filter)
+    {
+        newsfeedFilter.CopyFilterValues(filter);
+    }
+
+    public async Task AddNewFilter()
+    {
+        IModalReference filterModal = Modal.Show<AddNewsfeedFilter>("Add New Filter");
+        ModalResult result = await filterModal.Result;
+
+        if (result.Confirmed)
+        {
+            NewsfeedFilter newFilter = (NewsfeedFilter)result.Data;
+            filterService.SaveNewsfeedFilter(newFilter);
+            NewsfeedFilterCollection = filterService.GetAllNewsfeedFilters();
+        }
+    }
+
+    public void DeleteFilter(NewsfeedFilter filter)
+    {
+        filterService.DeleteFilter(filter);
+        NewsfeedFilterCollection = filterService.GetAllNewsfeedFilters();
+    }
+
+    public async Task EditFilter(NewsfeedFilter filter)
+    {
+        ModalParameters data = new ModalParameters().Add(nameof(AddNewsfeedFilter.Filter), filter);
+        IModalReference filterModal = Modal.Show<AddNewsfeedFilter>("Edit Filter", data);
+        ModalResult result = await filterModal.Result;
+
+        if (result.Confirmed)
+        {
+            NewsfeedFilter newFilter = (NewsfeedFilter)result.Data;
+            filterService.SaveNewsfeedFilter(newFilter);
+            NewsfeedFilterCollection = filterService.GetAllNewsfeedFilters();
+        }
+    }
+}

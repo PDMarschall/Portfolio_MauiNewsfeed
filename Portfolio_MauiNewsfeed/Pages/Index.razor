@@ -1,6 +1,8 @@
 ﻿@page "/"
 @using Portfolio_MauiNewsfeed.Filtering;
+@using Portfolio_MauiNewsfeed.Services;
 @inject NewsfeedFilter newsfeedFilter
+@inject FilterService filterService
 
 <TabControl>
     <TabPage Text="Seneste Nyt">
@@ -31,6 +33,15 @@
     {
         _whitelist ??= new List<string>();
         _blacklist ??= new List<string>();
+
+        var filters = filterService.GetAllNewsfeedFilters();
+        string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
+
+        if (activeFilterTitle != "None")
+        {
+            newsfeedFilter.CopyFilterValues(filters.Where(x => x.Title == activeFilterTitle).FirstOrDefault());
+        }
+
         base.OnInitialized();
     }
 

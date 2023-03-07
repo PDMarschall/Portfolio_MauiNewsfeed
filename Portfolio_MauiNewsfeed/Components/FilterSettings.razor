@@ -1,0 +1,18 @@
+﻿@using Portfolio_MauiNewsfeed.Filtering;
+@using Portfolio_MauiNewsfeed.Services;
+
+<div class="container-fluid">
+    <FilterSettingsToggle Id="FilterToggle" LabelTitle="Filter" LabelMessage="Toggles newsfeed filtering" Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter" />
+    <div class="@(Preferences.Get("EnableFilter", false) == false ? "d-none" : "d-block")">
+        <FilterSettingsFilterList/>
+    </div>
+</div>
+
+@code {    
+
+    public void ToggleFilter(bool toggle)
+    {
+        Preferences.Set("EnableFilter", toggle);
+    }
+
+}

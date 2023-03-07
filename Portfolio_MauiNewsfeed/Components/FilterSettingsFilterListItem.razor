@@ -1,0 +1,52 @@
+﻿@using Portfolio_MauiNewsfeed.Filtering;
+
+<div @onclick="SelectFilter" class="">        
+    <label class="list-group-item rounded-3 py-3 @(IsActive ? "selected-filter fw-bold" : "")" for="@Id">
+        @Filter.Title
+    <span class="d-block small opacity-50 fw-light">With support text underneath to add more detail</span>
+</label>
+</div>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public string ListName { get; set; }
+
+    [Parameter, EditorRequired]
+    public string Id { get; set; }
+
+    [Parameter]
+    public NewsfeedFilter Filter { get; set; }
+
+    public bool IsActive => this.Filter.Title == Preferences.Get("ActiveFilter", "None");
+
+    [Parameter]
+    public EventCallback<NewsfeedFilter> OnSelectFilter { get; set; }
+
+    [Parameter]
+    public EventCallback<NewsfeedFilter> OnDeleteFilter { get; set; }
+
+    [Parameter]
+    public EventCallback<NewsfeedFilter> OnEditFilter { get; set; }
+
+    public void SelectFilter()
+    {
+        if (!IsActive)
+        {
+            Preferences.Set("ActiveFilter", Filter.Title);
+            OnSelectFilter.InvokeAsync(Filter);
+        }
+        else
+            Preferences.Set("ActiveFilter", "None");
+    }
+
+    public void DeleteFilter()
+    {
+        OnDeleteFilter.InvokeAsync(Filter);
+    }
+
+    public void EditFilter()
+    {
+        OnEditFilter.InvokeAsync(Filter);
+    }
+}
