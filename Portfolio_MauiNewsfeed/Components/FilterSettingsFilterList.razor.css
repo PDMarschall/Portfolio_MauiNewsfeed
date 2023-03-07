@@ -1,0 +1,9 @@
+﻿.label-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-container {
+    display: flex;
+}

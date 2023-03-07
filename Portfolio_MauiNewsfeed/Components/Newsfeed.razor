@@ -1,5 +1,6 @@
 ﻿@using System.ServiceModel.Syndication;
 @using System.Xml;
+@using System.Collections.ObjectModel;
 @inject NavigationManager navigationManager
 <p class="text-danger font-weight-bold">@_errorMessage</p>
 <br />
@@ -73,8 +74,9 @@
     public void InitializeNullEntries()
     {
         foreach (SyndicationItem item in _feed.Items)
-            if (item.Summary == null)
-                item.Summary ??= new TextSyndicationContent("");
+        {
+            item.Summary ??= new TextSyndicationContent("");            
+        }
     }
 
     public void ApplyFilter()
@@ -83,9 +85,13 @@
         {
             _filteredFeed = _feed;
             _filteredFeed.Items = _feed.Items.Where(x =>
-                (!Whitelist.Any() || Whitelist.Any(searchTerm => x.Title.Text.ToLower().Contains(searchTerm.ToLower())))
+                (!Whitelist.Any()
+                ||
+                Whitelist.Any(searchTerm => x.Title.Text.ToLower().Contains(searchTerm.ToLower())))
                 &&
-                (!Blacklist.Any() || Blacklist.Any(searchTerm => !x.Title.Text.ToLower().Contains(searchTerm.ToLower()))));
+                (!Blacklist.Any()
+                ||
+                Blacklist.Any(searchTerm => !x.Title.Text.ToLower().Contains(searchTerm.ToLower()))));
         }
     }
 }

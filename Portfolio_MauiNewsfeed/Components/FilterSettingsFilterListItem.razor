@@ -1,9 +1,9 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 
-<div @onclick="SelectFilter" class="">
-    <label class="list-group-item rounded-3 py-3 @(IsActive ? "selected-filter fw-bold" : "")" for="@Id">
+<div class="list-group-item rounded-3 py-3 filter-item @(IsActive ? "selected-filter" : "")" id="@Id">
+    <label class="@(IsActive ? "fw-bold" : "")" for="@Id">
         @Filter.Title
-        @if (IsActive)
+@*        @if (IsActive)
         {
             @if (Filter.UserBlacklist.Count > 0)
             {
@@ -17,9 +17,16 @@
                     Whitelist: @String.Join(',', Filter.UserWhitelist)
                 </span>
             }
-        }
+        }*@
     </label>
+    <div class="btn-group text-end" role="group">
+        <div class="btn btn-danger" @onclick="DeleteFilter">Delete</div>
+        <div class="btn btn-secondary" @onclick="EditFilter">Edit</div>
+        <div class="btn btn-success" @onclick="SelectFilter">Select</div>
+    </div>
 </div>
+
+
 
 @code {
 
