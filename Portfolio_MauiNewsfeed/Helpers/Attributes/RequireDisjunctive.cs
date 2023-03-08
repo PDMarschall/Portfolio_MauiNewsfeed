@@ -12,6 +12,8 @@ namespace Portfolio_MauiNewsfeed.Helpers.Attributes
     {
         private readonly string[] _disjunctiveProperties;
 
+        public bool AllowNonNullDefaultValues { get; set; }
+
         public RequireDisjunctive(params string[] propertyNames)
         {
             _disjunctiveProperties = propertyNames;
@@ -31,12 +33,25 @@ namespace Portfolio_MauiNewsfeed.Helpers.Attributes
 
             List<bool> results = new List<bool>();
 
-            foreach (object propertyValue in propertyValues)
+            if (AllowNonNullDefaultValues)
             {
-                if (propertyValue.IsNullOrDefault() || (string)propertyValue == string.Empty)
-                    results.Add(false);
-                else
-                    results.Add(true);
+                foreach (object propertyValue in propertyValues)
+                {
+                    if (propertyValue == null || (string)propertyValue == string.Empty)
+                        results.Add(false);
+                    else
+                        results.Add(true);
+                }
+            }
+            else
+            {
+                foreach (object propertyValue in propertyValues)
+                {
+                    if (propertyValue.IsNullOrDefault() || (string)propertyValue == string.Empty)
+                        results.Add(false);
+                    else
+                        results.Add(true);
+                }
             }
 
             return results.Any(x => x == true);
