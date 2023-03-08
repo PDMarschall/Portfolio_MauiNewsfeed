@@ -3,7 +3,7 @@
     align-items: center;
 }
 
-.filter-item-hover:hover {
+.filter-item-hoverable:hover {
     background-color: #f8f9fa;
 }
 

@@ -1,6 +1,6 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 
-<div @onclick="SelectFilter" class="list-group-item rounded-3 py-3 border-1 filter-item d-flex justify-content-between align-items-center @(IsActive ? "selected-filter" : "filter-item-hover")" id="@Id">
+<div @onclick="SelectFilter" class="list-group-item rounded-3 py-3 border-1 filter-item d-flex justify-content-between align-items-center @(IsActive ? "selected-filter" : "filter-item-hoverable")" id="@Id">
       <div class="d-flex flex-column">
         <label class="@(IsActive ? "fw-bold" : "")" for="@Id">@Filter.Title</label>
         @if (IsActive)
