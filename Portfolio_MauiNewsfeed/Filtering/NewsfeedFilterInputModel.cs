@@ -14,10 +14,10 @@ namespace Portfolio_MauiNewsfeed.Filtering
         [Required(ErrorMessage = "Please input a title"), MinLength(1)]
         public string Title { get; set; } = string.Empty;
 
-        [RegularExpression(@"^\b[a-zæøåA-ZÆØÅ]+\b(?:[ ,.;:?!]\s*[a-zæøåA-ZÆØÅ]+\b){0,2}$", ErrorMessage = "Include 1 - 3 words in list.")]
+        [RegularExpression(@"^\b[a-zæøåA-ZÆØÅ]+\b(?:[ ,.;:?!]\s*[a-zæøåA-ZÆØÅ]+\b){0,2}$", ErrorMessage = "1 - 3 ord.")]
         public string Whitelist { get; set; } = string.Empty;
 
-        [RegularExpression(@"^\b[a-zæøåA-ZÆØÅ]+\b(?:[ ,.;:?!]\s*[a-zæøåA-ZÆØÅ]+\b){0,2}$", ErrorMessage = "Include 1 - 3 words in list.")]
+        [RegularExpression(@"^\b[a-zæøåA-ZÆØÅ]+\b(?:[ ,.;:?!]\s*[a-zæøåA-ZÆØÅ]+\b){0,2}$", ErrorMessage = "1 - 3 ord.")]
         public string Blacklist { get; set; } = string.Empty;
 
         public NewsfeedFilter ConvertInputModel()
