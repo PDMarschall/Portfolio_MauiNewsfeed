@@ -26,23 +26,17 @@ namespace Portfolio_MauiNewsfeed.Filtering
         {            
             List<object> propertyValues = new List<object>();
 
-            foreach (string propertyName in _disjunctiveProperties)
-            {
+            foreach (string propertyName in _disjunctiveProperties)            
                 propertyValues.Add(validationContext.ObjectType.GetProperty($"{propertyName}").GetValue(validationContext.ObjectInstance, null));
-            }
-
+            
             List<bool> results= new List<bool>();
 
             foreach (object propertyValue in propertyValues)
             {
-                if (propertyValue == null || (string)propertyValue == string.Empty)
-                {
-                    results.Add(false);
-                }
-                else
-                {
-                    results.Add(true);
-                }                
+                if (propertyValue == null || (string)propertyValue == string.Empty)                
+                    results.Add(false);                
+                else                
+                    results.Add(true);                            
             }
 
             return results.Any(x => x == true);
