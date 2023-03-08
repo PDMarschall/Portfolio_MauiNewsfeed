@@ -31,30 +31,20 @@ namespace Portfolio_MauiNewsfeed.Helpers.Attributes
             foreach (string propertyName in _disjunctiveProperties)
                 propertyValues.Add(validationContext.ObjectType.GetProperty($"{propertyName}").GetValue(validationContext.ObjectInstance, null));
 
-            List<bool> results = new List<bool>();
-
             if (AllowNonNullDefaultValues)
-            {
                 foreach (object propertyValue in propertyValues)
                 {
-                    if (propertyValue == null || (string)propertyValue == string.Empty)
-                        results.Add(false);
-                    else
-                        results.Add(true);
+                    if (propertyValue != null && (string)propertyValue != string.Empty)
+                        return true;
                 }
-            }
             else
-            {
                 foreach (object propertyValue in propertyValues)
                 {
-                    if (propertyValue.IsNullOrDefault() || (string)propertyValue == string.Empty)
-                        results.Add(false);
-                    else
-                        results.Add(true);
+                    if (!propertyValue.IsNullOrDefault() && (string)propertyValue != string.Empty)
+                        return true;
                 }
-            }
 
-            return results.Any(x => x == true);
+            return false;
         }
     }
 }
