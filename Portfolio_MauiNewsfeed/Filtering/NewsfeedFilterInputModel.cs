@@ -9,11 +9,15 @@ namespace Portfolio_MauiNewsfeed.Filtering
 {
     public class NewsfeedFilterInputModel
     {
-        private char[] separators = { ' ', ',', '.', ';', ':', '?', '!' };
+        private readonly char[] _separators = { ' ', ',', '.', ';', ':', '?', '!' };        
 
         [Required(ErrorMessage = "Please input a title"), MinLength(1)]
         public string Title { get; set; } = string.Empty;
+
+        [RegularExpression(@"\b[a-zæøåA-ZÆØÅ]+\b(?:[ ,.;:?!]\s*[a-zæøåA-ZÆØÅ]+\b){0,2}", ErrorMessage = "3 word limit.")]
         public string Whitelist { get; set; } = string.Empty;
+
+        [RegularExpression(@"\b[a-zæøåA-ZÆØÅ]+\b(?:[ ,.;:?!]\s*[a-zæøåA-ZÆØÅ]+\b){0,2}", ErrorMessage = "3 word limit.")]
         public string Blacklist { get; set; } = string.Empty;
 
         public NewsfeedFilter ConvertInputModel()
@@ -27,7 +31,7 @@ namespace Portfolio_MauiNewsfeed.Filtering
 
         private List<string> HandleInputList(string inputList)
         {
-            return inputList.Split(separators, StringSplitOptions.RemoveEmptyEntries).ToList();
+            return inputList.Split(_separators, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
     }
 }
