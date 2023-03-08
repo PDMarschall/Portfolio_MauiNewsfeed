@@ -1,7 +1,7 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 
 <div>
-    <EditForm Model="_filterInputModel" OnValidSubmit="SubmitForm">
+    <EditForm EditContext="_editContext" OnValidSubmit="SubmitForm" OnInvalidSubmit="InvalidSubmitForm">
         <DataAnnotationsValidator />
         <div class="row g-3 align-items-center">
             <div>
@@ -43,6 +43,7 @@
 @code {
 
     private NewsfeedFilterInputModel _filterInputModel = new NewsfeedFilterInputModel();
+    private EditContext _editContext;
 
     [Parameter]
     public NewsfeedFilter Filter { get; set; }
@@ -50,15 +51,31 @@
     [CascadingParameter]
     BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
-        base.OnParametersSet();
+        _editContext = new EditContext(_filterInputModel);
+        base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {        
         if (Filter != null)
         {
             _filterInputModel.Title = Filter.Title;
             _filterInputModel.Whitelist = String.Join(", ", Filter.UserWhitelist);
             _filterInputModel.Blacklist = String.Join(", ", Filter.UserBlacklist);
         }
+
+        base.OnParametersSet();
+    }
+
+    private void InvalidSubmitForm()
+    {
+        FieldIdentifier whitelistId = _editContext.Field("Whitelist");
+        _editContext.NotifyFieldChanged(whitelistId);
+
+        FieldIdentifier blacklistId = _editContext.Field("Blacklist");
+        _editContext.NotifyFieldChanged(blacklistId);        
     }
 
     private async Task SubmitForm()
