@@ -1,6 +1,6 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 
-<div @onclick="SelectFilter" class="list-group-item rounded-3 py-3 filter-item d-flex justify-content-between align-items-center @(IsActive ? "selected-filter" : "")" id="@Id">
+<div @onclick="SelectFilter" class="list-group-item rounded-3 py-3 border-1 filter-item d-flex justify-content-between align-items-center @(IsActive ? "selected-filter" : "filter-item-hover")" id="@Id">
       <div class="d-flex flex-column">
         <label class="@(IsActive ? "fw-bold" : "")" for="@Id">@Filter.Title</label>
         @if (IsActive)
@@ -8,20 +8,20 @@
             @if (Filter.UserBlacklist.Count > 0)
             {
                 <span class="d-block small opacity-50 fw-light">
-                Blacklist: @String.Join(',', Filter.UserBlacklist)
+                Blacklist: @String.Join(", ", Filter.UserBlacklist)
                 </span>
             }
             @if (Filter.UserWhitelist.Count > 0)
             {
                 <span class="d-block small opacity-50 fw-light">
-                Whitelist: @String.Join(',', Filter.UserWhitelist)
+                Whitelist: @String.Join(", ", Filter.UserWhitelist)
                 </span>
             }
         }
       </div>
       <div class="btn-group align-self-center" role="group">
-        <label class="btn @(IsActive ? "btn-filter" : "btn-outline-filter")" @onclick="DeleteFilter">Delete</label>
         <label class="btn @(IsActive ? "btn-filter" : "btn-outline-filter")" @onclick="EditFilter">Edit</label>
+        <label class="btn @(IsActive ? "btn-filter" : "btn-outline-filter")" @onclick="DeleteFilter">Delete</label>
     </div>
     </div>
   

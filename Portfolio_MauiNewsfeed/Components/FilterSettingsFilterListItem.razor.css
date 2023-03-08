@@ -3,6 +3,17 @@
     align-items: center;
 }
 
+.filter-item-hover:hover {
+    background-color: #f8f9fa;
+}
+
+.selected-filter {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: var(--bs-blue);
+    box-shadow: 0 0 0 2px var(--bs-blue);
+}
+
 .btn-filter {
     color: #fff;
     background-color: #0d6efd;
