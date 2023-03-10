@@ -3,6 +3,10 @@
     align-items: center;
 }
 
+.btn-hover:hover {
+    font-weight: bold;
+}
+
 .filter-item-hoverable:hover {
     background-color: #f8f9fa;
 }

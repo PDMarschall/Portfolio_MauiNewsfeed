@@ -7,7 +7,7 @@
         Filterindstillinger
     </div>
     <div class="card-body">             
-        <FilterSettingsToggle Id="FilterToggle" LabelTitle="Filtrering" LabelMessage="Slår filtrering af nyheder til og fra." Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter" />
+        <FilterSettingsToggle Id="FilterToggle" LabelTitle="Filtrér" LabelMessage="Slår filtrering af nyheder til og fra." Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter" />
         <div class="@(Preferences.Get("EnableFilter", false) == false ? "d-none" : "d-block")">
             <FilterSettingsFilterList />
         </div>

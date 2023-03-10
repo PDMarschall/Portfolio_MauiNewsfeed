@@ -1,7 +1,7 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 
 <div>
-    <EditForm EditContext="_editContext" OnValidSubmit="SubmitForm" OnInvalidSubmit="InvalidSubmitForm">
+    <EditForm EditContext="_editContext" OnValidSubmit="SubmitFormAsync" OnInvalidSubmit="InvalidSubmitForm">
         <DataAnnotationsValidator />
         <div class="row g-3 align-items-center">
             <div>
@@ -32,9 +32,9 @@
                 </div>
             </div>
         </div>
-        <div class="pt-2">
-            <button type="submit" class="btn btn-success">Gem</button>
-            <button @onclick="Cancel" class="btn btn-secondary">Tilbage</button>
+        <div class="py-3 d-flex btn-group align-self-center w-auto">
+            <button type="submit" class="btn btn-outline-success btn-hover">Gem Filter</button>
+            <button @onclick="Cancel" class="btn btn-outline-danger btn-hover">Tilbage</button>
         </div>
     </EditForm>
 </div>
@@ -70,16 +70,16 @@
         base.OnAfterRender(firstRender);
     }
 
+    // for displaying validation messages on untouched forms
     private void InvalidSubmitForm()
     {
         FieldIdentifier whitelistId = _editContext.Field("Whitelist");
         _editContext.NotifyFieldChanged(whitelistId);
-
         FieldIdentifier blacklistId = _editContext.Field("Blacklist");
         _editContext.NotifyFieldChanged(blacklistId);        
     }
 
-    private async Task SubmitForm()
+    private async Task SubmitFormAsync()
     {
         Filter ??= new NewsfeedFilter();
         Filter = _filterInputModel.ConvertInputModel();

@@ -12,25 +12,25 @@ namespace Portfolio_MauiNewsfeed.Services
     {
         private const string FilterExtension = "filter.json";
 
-        public List<NewsfeedFilter> GetAllFilters()
+        public async Task<List<NewsfeedFilter>> GetAllFiltersAsync()
         {
             List<NewsfeedFilter> filters = new List<NewsfeedFilter>();
             IEnumerable<string> filterFilenames = Directory.GetFiles(FileSystem.AppDataDirectory).Where(x => x.EndsWith(FilterExtension));
 
             foreach (string filterFilename in filterFilenames)
             {
-                string rawData = File.ReadAllText(filterFilename);
+                string rawData = await File.ReadAllTextAsync(filterFilename);
                 filters.Add(JsonSerializer.Deserialize<NewsfeedFilter>(rawData));
             }
 
             return filters;            
         }
 
-        public void SaveFilter(NewsfeedFilter filter)
+        public async Task SaveFilterAsync(NewsfeedFilter filter)
         {            
             string fileName = Path.Combine(FileSystem.AppDataDirectory, filter.Title + FilterExtension);
             var serializedData = JsonSerializer.Serialize(filter);
-            File.WriteAllText(fileName, serializedData);
+            await File.WriteAllTextAsync(fileName, serializedData);
         }
 
         public void DeleteFilter(NewsfeedFilter filter)

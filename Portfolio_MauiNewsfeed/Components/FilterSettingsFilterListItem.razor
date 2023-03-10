@@ -1,31 +1,16 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 
 <div class="list-group-item rounded-3 py-3 border-1 filter-item d-flex justify-content-between align-items-center @(IsActive ? "selected-filter" : "filter-item-hoverable")" id="@Id">
-      <div class="d-flex flex-column">
+    <div class="d-flex flex-column">
         <label class="@(IsActive ? "fw-bold" : "")" for="@Id">@Filter.Title</label>
-        @if (IsActive)
-        {
-            @if (Filter.UserBlacklist.Count > 0)
-            {
-                <span class="d-block small opacity-50 fw-light">
-                Blacklist: @String.Join(", ", Filter.UserBlacklist)
-                </span>
-            }
-            @if (Filter.UserWhitelist.Count > 0)
-            {
-                <span class="d-block small opacity-50 fw-light">
-                Whitelist: @String.Join(", ", Filter.UserWhitelist)
-                </span>
-            }
-        }
-      </div>
-      <div class="btn-group align-self-center" role="group">
-        <label class="btn @(IsActive ? "btn-filter" : "btn-outline-filter")" @onclick="EditFilter">Rediger</label>
-        <label class="btn @(IsActive ? "btn-filter" : "btn-outline-filter")" @onclick="DeleteFilter">Slet</label>
-        <label class="btn @(IsActive ? "btn-filter" : "btn-outline-filter")" @onclick="SelectFilter">Vælg</label>
     </div>
+    <div class="btn-group align-self-center" role="group">
+        <label class="btn @(IsActive ? "btn-filter" : "btn-outline-filter") btn-hover" @onclick="EditFilter"><i class="@(IsActive ? "bi bi-pencil" : "bi bi-pencil-fill")"></i></label>
+        <label class="btn @(IsActive ? "btn-filter" : "btn-outline-filter") btn-hover" @onclick="DeleteFilter"><i class="@(IsActive ? "bi bi-trash" : "bi bi-trash-fill")"></i></label>
+        <label class="btn @(IsActive ? "btn-filter" : "btn-outline-filter") btn-hover" @onclick="SelectFilter"><i class="@(IsActive ? "bi bi-toggle-on" : "bi bi-toggle-off")"></i></label>
     </div>
-  
+</div>
+
 
 
 

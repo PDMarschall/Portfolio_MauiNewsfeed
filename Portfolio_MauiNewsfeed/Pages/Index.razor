@@ -29,12 +29,12 @@
     private List<string> _whitelist { get; set; }
     private List<string> _blacklist { get; set; }
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
         _whitelist ??= new List<string>();
         _blacklist ??= new List<string>();
 
-        var filters = filterService.GetAllFilters();
+        var filters = await filterService.GetAllFiltersAsync();
         string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
 
         if (activeFilterTitle != "None")
@@ -44,7 +44,7 @@
                 newsfeedFilter.CopyFilterValues(activeFilter);
         }
 
-        base.OnInitialized();
+        await base.OnInitializedAsync();
     }
 
     protected override void OnParametersSet()

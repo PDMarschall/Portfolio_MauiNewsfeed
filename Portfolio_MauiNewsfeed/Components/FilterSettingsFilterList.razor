@@ -8,10 +8,10 @@
     {
         for (int i = 0; i < NewsfeedFilterCollection.Count(); i++)
         {
-            <FilterSettingsFilterListItem Filter="NewsfeedFilterCollection[i]" ListName="FilterList" Id="@("FilterList"+i)" OnSelectFilter="SetFilter" OnDeleteFilter="DeleteFilter" OnEditFilter="EditFilter" />
+            <FilterSettingsFilterListItem Filter="NewsfeedFilterCollection[i]" ListName="FilterList" Id="@("FilterList"+i)" OnSelectFilter="SetFilter" OnDeleteFilter="DeleteFilterAsync" OnEditFilter="EditFilterAsync" />
         }
     }
-    <button type="button" class="btn btn-outline-success" @onclick="AddNewFilter">Tilføj Nyt Filter</button>
+    <button type="button" class="btn btn-outline-success" @onclick="AddNewFilterAsync"><i class="bi bi-file-plus"></i> Tilføj Nyt Filter</button>
 </div>
 
 @code {
@@ -20,25 +20,25 @@
 
     public List<NewsfeedFilter> NewsfeedFilterCollection { get; set; }
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
-        NewsfeedFilterCollection = filterService.GetAllFilters();
+        NewsfeedFilterCollection = await filterService.GetAllFiltersAsync();
         string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
 
         if (activeFilterTitle != "None")
         {
             var activeFilter = NewsfeedFilterCollection.Where(x => x.Title == activeFilterTitle).FirstOrDefault();
-            if (activeFilter != null)            
-                newsfeedFilter.CopyFilterValues(activeFilter);            
+            if (activeFilter != null)
+                newsfeedFilter.CopyFilterValues(activeFilter);
         }
 
-        base.OnInitialized();
+        await base.OnInitializedAsync();
     }
 
-    protected override void OnParametersSet()
+    protected async override Task OnParametersSetAsync()
     {
-        NewsfeedFilterCollection = filterService.GetAllFilters();
-        base.OnParametersSet();
+        NewsfeedFilterCollection = await filterService.GetAllFiltersAsync();
+        await base.OnParametersSetAsync();
     }
 
     public void SetFilter(NewsfeedFilter filter)
@@ -46,7 +46,7 @@
         newsfeedFilter.CopyFilterValues(filter);
     }
 
-    public async Task AddNewFilter()
+    public async Task AddNewFilterAsync()
     {
         IModalReference filterModal = Modal.Show<FilterSettingsAddNewFilter>("Add New Filter");
         ModalResult result = await filterModal.Result;
@@ -54,18 +54,18 @@
         if (result.Confirmed)
         {
             NewsfeedFilter newFilter = (NewsfeedFilter)result.Data;
-            filterService.SaveFilter(newFilter);
-            NewsfeedFilterCollection = filterService.GetAllFilters();
+            await filterService.SaveFilterAsync(newFilter);
+            NewsfeedFilterCollection = await filterService.GetAllFiltersAsync();
         }
     }
 
-    public void DeleteFilter(NewsfeedFilter filter)
+    public async Task DeleteFilterAsync(NewsfeedFilter filter)
     {
         filterService.DeleteFilter(filter);
-        NewsfeedFilterCollection = filterService.GetAllFilters();
+        NewsfeedFilterCollection = await filterService.GetAllFiltersAsync();
     }
 
-    public async Task EditFilter(NewsfeedFilter filter)
+    public async Task EditFilterAsync(NewsfeedFilter filter)
     {
         ModalParameters data = new ModalParameters().Add(nameof(FilterSettingsAddNewFilter.Filter), filter);
         IModalReference filterModal = Modal.Show<FilterSettingsAddNewFilter>("Edit Filter", data);
@@ -74,8 +74,8 @@
         if (result.Confirmed)
         {
             NewsfeedFilter newFilter = (NewsfeedFilter)result.Data;
-            filterService.SaveFilter(newFilter);
-            NewsfeedFilterCollection = filterService.GetAllFilters();
+            await filterService.SaveFilterAsync(newFilter);
+            NewsfeedFilterCollection = await filterService.GetAllFiltersAsync();
         }
     }
 }
