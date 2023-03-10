@@ -11,7 +11,7 @@
             <FilterSettingsFilterListItem Filter="NewsfeedFilterCollection[i]" ListName="FilterList" Id="@("FilterList"+i)" OnSelectFilter="SetFilter" OnDeleteFilter="DeleteFilterAsync" OnEditFilter="EditFilterAsync" />
         }
     }
-    <button type="button" class="btn btn-outline-success" @onclick="AddNewFilterAsync"><i class="bi bi-file-plus"></i> Tilføj Nyt Filter</button>
+    <button type="button" class="btn btn-outline-success" @onclick="AddNewFilterAsync"><i class="bi bi-plus-circle"></i></button>
 </div>
 
 @code {
@@ -48,7 +48,7 @@
 
     public async Task AddNewFilterAsync()
     {
-        IModalReference filterModal = Modal.Show<FilterSettingsAddNewFilter>("Add New Filter");
+        IModalReference filterModal = Modal.Show<FilterSettingsAddNewFilter>("Tilføj Nyt Filter");
         ModalResult result = await filterModal.Result;
 
         if (result.Confirmed)
@@ -68,7 +68,7 @@
     public async Task EditFilterAsync(NewsfeedFilter filter)
     {
         ModalParameters data = new ModalParameters().Add(nameof(FilterSettingsAddNewFilter.Filter), filter);
-        IModalReference filterModal = Modal.Show<FilterSettingsAddNewFilter>("Edit Filter", data);
+        IModalReference filterModal = Modal.Show<FilterSettingsAddNewFilter>("Rediger Filter", data);
         ModalResult result = await filterModal.Result;
 
         if (result.Confirmed)
