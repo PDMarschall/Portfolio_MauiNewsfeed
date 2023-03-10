@@ -32,8 +32,8 @@
                 </div>
             </div>
         </div>
-        <div class="button-container">
-            <button type="submit" class="btn btn-success gap-2">Submit</button>
+        <div class="pt-2">
+            <button type="submit" class="btn btn-success">Submit</button>
             <button @onclick="Cancel" class="btn btn-secondary">Cancel</button>
         </div>
     </EditForm>
@@ -57,16 +57,15 @@
         base.OnInitialized();
     }
 
-    protected override void OnParametersSet()
-    {        
-        if (Filter != null)
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (Filter != null && firstRender)
         {
             _filterInputModel.Title = Filter.Title;
             _filterInputModel.Whitelist = String.Join(", ", Filter.UserWhitelist);
             _filterInputModel.Blacklist = String.Join(", ", Filter.UserBlacklist);
         }
-
-        base.OnParametersSet();
+        base.OnAfterRender(firstRender);
     }
 
     private void InvalidSubmitForm()

@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Logging;
 using Portfolio_MauiNewsfeed.Filtering;
 using Portfolio_MauiNewsfeed.Services;
+using Microsoft.EntityFrameworkCore;
+using Portfolio_MauiNewsfeed.Data;
 
 namespace Portfolio_MauiNewsfeed;
 
@@ -18,6 +20,7 @@ public static class MauiProgram
             });
 
         builder.Services.AddMauiBlazorWebView();
+        builder.Services.AddDbContextFactory<NewsfeedDbContext>(options => options.UseSqlite("Data Source=NewsfeedDb.sqlite3"));
 
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();

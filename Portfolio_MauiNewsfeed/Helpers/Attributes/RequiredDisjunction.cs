@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace Portfolio_MauiNewsfeed.Helpers.Attributes
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
-    public sealed class RequireDisjunctive : ValidationAttribute
+    public sealed class RequiredDisjunction : ValidationAttribute
     {
         private readonly string[] _disjunctiveProperties;
 
         public bool AllowNonNullDefaultValues { get; set; }
 
-        public RequireDisjunctive(params string[] propertyNames)
+        public RequiredDisjunction(params string[] propertyNames)
         {
             _disjunctiveProperties = propertyNames;
         }

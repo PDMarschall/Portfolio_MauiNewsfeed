@@ -11,20 +11,22 @@ namespace Portfolio_MauiNewsfeed.Filtering
     public class NewsfeedFilterInputModel
     {
         private readonly char[] _separators = { ' ', ',', '.', ';', ':', '?', '!' };
-                
+        private const string _whitelist = "Whitelist";
+        private const string _blacklist = "Blacklist";
+
         [Required(ErrorMessage = "Please input a title"), MinLength(1)]
         public string Title { get; set; } = string.Empty;
 
         [RegularExpression(@"^\b[a-zæøåA-ZÆØÅ]+\b(?:[ ,.;:?!]\s*[a-zæøåA-ZÆØÅ]+\b){0,2}$",
             ErrorMessage = "Vælg 1 - 3 ord."),
-            RequireDisjunctive("Whitelist", "Blacklist",            
+            RequiredDisjunction(new string[] { _whitelist, _blacklist },            
             ErrorMessage = "Please input at least one word in either list.")]
 
         public string Whitelist { get; set; } = string.Empty;
 
         [RegularExpression(@"^\b[a-zæøåA-ZÆØÅ]+\b(?:[ ,.;:?!]\s*[a-zæøåA-ZÆØÅ]+\b){0,2}$",
             ErrorMessage = "Vælg 1 - 3 ord."),
-            RequireDisjunctive("Whitelist", "Blacklist",
+            RequiredDisjunction(new string[] { _whitelist, _blacklist },
             ErrorMessage = "Please input at least one word in either list.")]
         public string Blacklist { get; set; } = string.Empty;
 
