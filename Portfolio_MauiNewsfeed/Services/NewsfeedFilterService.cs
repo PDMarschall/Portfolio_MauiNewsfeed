@@ -10,10 +10,12 @@ namespace Portfolio_MauiNewsfeed.Services
 {
     public class NewsfeedFilterService
     {
-        public List<NewsfeedFilter> GetAllNewsfeedFilters()
+        private const string FilterExtension = "filter.json";
+
+        public List<NewsfeedFilter> GetAllFilters()
         {
             List<NewsfeedFilter> filters = new List<NewsfeedFilter>();
-            IEnumerable<string> filterFilenames = Directory.GetFiles(FileSystem.AppDataDirectory).Where(x => x.EndsWith("filter.json"));
+            IEnumerable<string> filterFilenames = Directory.GetFiles(FileSystem.AppDataDirectory).Where(x => x.EndsWith(FilterExtension));
 
             foreach (string filterFilename in filterFilenames)
             {
@@ -24,16 +26,16 @@ namespace Portfolio_MauiNewsfeed.Services
             return filters;            
         }
 
-        public void SaveNewsfeedFilter(NewsfeedFilter filter)
+        public void SaveFilter(NewsfeedFilter filter)
         {            
-            string fileName = Path.Combine(FileSystem.AppDataDirectory, filter.Title + "filter.json");
+            string fileName = Path.Combine(FileSystem.AppDataDirectory, filter.Title + FilterExtension);
             var serializedData = JsonSerializer.Serialize(filter);
             File.WriteAllText(fileName, serializedData);
         }
 
         public void DeleteFilter(NewsfeedFilter filter)
         {
-            string fileName = Path.Combine(FileSystem.AppDataDirectory, filter.Title + "filter.json");
+            string fileName = Path.Combine(FileSystem.AppDataDirectory, filter.Title + FilterExtension);
             File.Delete(fileName);
         }
     }

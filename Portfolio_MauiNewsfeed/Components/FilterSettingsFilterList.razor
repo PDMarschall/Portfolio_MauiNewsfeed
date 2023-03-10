@@ -11,7 +11,7 @@
             <FilterSettingsFilterListItem Filter="NewsfeedFilterCollection[i]" ListName="FilterList" Id="@("FilterList"+i)" OnSelectFilter="SetFilter" OnDeleteFilter="DeleteFilter" OnEditFilter="EditFilter" />
         }
     }
-    <button type="button" class="btn btn-outline-success" @onclick="AddNewFilter">Add New Filter</button>
+    <button type="button" class="btn btn-outline-success" @onclick="AddNewFilter">Tilføj Nyt Filter</button>
 </div>
 
 @code {
@@ -22,7 +22,7 @@
 
     protected override void OnInitialized()
     {
-        NewsfeedFilterCollection = filterService.GetAllNewsfeedFilters();
+        NewsfeedFilterCollection = filterService.GetAllFilters();
         string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
 
         if (activeFilterTitle != "None")
@@ -37,7 +37,7 @@
 
     protected override void OnParametersSet()
     {
-        NewsfeedFilterCollection = filterService.GetAllNewsfeedFilters();
+        NewsfeedFilterCollection = filterService.GetAllFilters();
         base.OnParametersSet();
     }
 
@@ -54,15 +54,15 @@
         if (result.Confirmed)
         {
             NewsfeedFilter newFilter = (NewsfeedFilter)result.Data;
-            filterService.SaveNewsfeedFilter(newFilter);
-            NewsfeedFilterCollection = filterService.GetAllNewsfeedFilters();
+            filterService.SaveFilter(newFilter);
+            NewsfeedFilterCollection = filterService.GetAllFilters();
         }
     }
 
     public void DeleteFilter(NewsfeedFilter filter)
     {
         filterService.DeleteFilter(filter);
-        NewsfeedFilterCollection = filterService.GetAllNewsfeedFilters();
+        NewsfeedFilterCollection = filterService.GetAllFilters();
     }
 
     public async Task EditFilter(NewsfeedFilter filter)
@@ -74,8 +74,8 @@
         if (result.Confirmed)
         {
             NewsfeedFilter newFilter = (NewsfeedFilter)result.Data;
-            filterService.SaveNewsfeedFilter(newFilter);
-            NewsfeedFilterCollection = filterService.GetAllNewsfeedFilters();
+            filterService.SaveFilter(newFilter);
+            NewsfeedFilterCollection = filterService.GetAllFilters();
         }
     }
 }

@@ -11,23 +11,25 @@ namespace Portfolio_MauiNewsfeed.Filtering
     public class NewsfeedFilterInputModel
     {
         private readonly char[] _separators = { ' ', ',', '.', ';', ':', '?', '!' };
-        private const string _whitelist = "Whitelist";
-        private const string _blacklist = "Blacklist";
+        private const string WhitelistName = "Whitelist";
+        private const string BlacklistName = "Blacklist";
+        private const string RegexError = "Mindst 1 ord og maksimalt 3 ord.";
+        private const string DisjunctionError = "Vælg mindst 1 ord til enten whitelist eller blacklist.";
 
-        [Required(ErrorMessage = "Please input a title"), MinLength(1)]
+        [Required(ErrorMessage = "Vælg en titel."), MinLength(1)]
         public string Title { get; set; } = string.Empty;
 
         [RegularExpression(@"^\b[a-zæøåA-ZÆØÅ]+\b(?:[ ,.;:?!]\s*[a-zæøåA-ZÆØÅ]+\b){0,2}$",
-            ErrorMessage = "Vælg 1 - 3 ord."),
-            RequiredDisjunction(new string[] { _whitelist, _blacklist },            
-            ErrorMessage = "Please input at least one word in either list.")]
+            ErrorMessage = RegexError),
+            RequiredDisjunction(new string[] { WhitelistName, BlacklistName },            
+            ErrorMessage = DisjunctionError)]
 
         public string Whitelist { get; set; } = string.Empty;
 
         [RegularExpression(@"^\b[a-zæøåA-ZÆØÅ]+\b(?:[ ,.;:?!]\s*[a-zæøåA-ZÆØÅ]+\b){0,2}$",
-            ErrorMessage = "Vælg 1 - 3 ord."),
-            RequiredDisjunction(new string[] { _whitelist, _blacklist },
-            ErrorMessage = "Please input at least one word in either list.")]
+            ErrorMessage = RegexError),
+            RequiredDisjunction(new string[] { WhitelistName, BlacklistName },
+            ErrorMessage = DisjunctionError)]
         public string Blacklist { get; set; } = string.Empty;
 
         public NewsfeedFilter ConvertInputModel()

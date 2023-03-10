@@ -9,7 +9,7 @@
                     <label class="col-form-label" for="Title">Title</label>
                 </div>
                 <div class="col-auto">
-                    <InputText id="Title" class="form-control" @bind-Value="_filterInputModel.Title" placeholder="Nyt filter"/>             
+                    <InputText id="Title" class="form-control" @bind-Value="_filterInputModel.Title" placeholder="Nyt filter" disabled="@_editFilterMode"/>             
                     <ValidationMessage For="@( () => _filterInputModel.Title)" />
                 </div>
             </div>
@@ -33,8 +33,8 @@
             </div>
         </div>
         <div class="pt-2">
-            <button type="submit" class="btn btn-success">Submit</button>
-            <button @onclick="Cancel" class="btn btn-secondary">Cancel</button>
+            <button type="submit" class="btn btn-success">Gem</button>
+            <button @onclick="Cancel" class="btn btn-secondary">Tilbage</button>
         </div>
     </EditForm>
 </div>
@@ -44,6 +44,7 @@
 
     private NewsfeedFilterInputModel _filterInputModel = new NewsfeedFilterInputModel();
     private EditContext _editContext;
+    private bool _editFilterMode;
 
     [Parameter]
     public NewsfeedFilter Filter { get; set; }
@@ -64,6 +65,7 @@
             _filterInputModel.Title = Filter.Title;
             _filterInputModel.Whitelist = String.Join(", ", Filter.UserWhitelist);
             _filterInputModel.Blacklist = String.Join(", ", Filter.UserBlacklist);
+            _editFilterMode = true;
         }
         base.OnAfterRender(firstRender);
     }

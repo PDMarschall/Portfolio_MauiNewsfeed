@@ -1,13 +1,13 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 @using Portfolio_MauiNewsfeed.Services;
 
-<h1>Settings</h1>
+<h1>Indstillinger</h1>
 <div class="card">
     <div class="card-header">
-        Filter Settings
+        Filterindstillinger
     </div>
     <div class="card-body">             
-        <FilterSettingsToggle Id="FilterToggle" LabelTitle="Filter" LabelMessage="Toggles newsfeed filtering" Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter" />
+        <FilterSettingsToggle Id="FilterToggle" LabelTitle="Filtrering" LabelMessage="Slår filtrering af nyheder til og fra." Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter" />
         <div class="@(Preferences.Get("EnableFilter", false) == false ? "d-none" : "d-block")">
             <FilterSettingsFilterList />
         </div>

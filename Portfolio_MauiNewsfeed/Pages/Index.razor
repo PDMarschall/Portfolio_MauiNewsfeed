@@ -34,7 +34,7 @@
         _whitelist ??= new List<string>();
         _blacklist ??= new List<string>();
 
-        var filters = filterService.GetAllNewsfeedFilters();
+        var filters = filterService.GetAllFilters();
         string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
 
         if (activeFilterTitle != "None")
