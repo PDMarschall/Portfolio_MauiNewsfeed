@@ -37,7 +37,7 @@
         base.OnParametersSet();
     }
 
-    public string SetItemAgeMessage(TimeSpan itemAge)
+    private string SetItemAgeMessage(TimeSpan itemAge)
     {
         if (itemAge.TotalSeconds < 60)
             return "Mindre end et minut siden.";

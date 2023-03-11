@@ -22,7 +22,24 @@
 
     protected async override Task OnInitializedAsync()
     {
+        await CheckForActiveFilterAsync();
+        await base.OnInitializedAsync();
+    }
+
+    protected async override Task OnParametersSetAsync()
+    {
+        await GetFiltersAsync();
+        await base.OnParametersSetAsync();
+    }
+
+    private async Task GetFiltersAsync()
+    {
         NewsfeedFilterCollection = await filterService.GetAllAsync();
+    }
+
+    private async Task CheckForActiveFilterAsync()
+    {
+        await GetFiltersAsync();
         string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
 
         if (activeFilterTitle != "None")
@@ -31,22 +48,14 @@
             if (activeFilter != null)
                 newsfeedFilter.CopyFilterValues(activeFilter);
         }
-
-        await base.OnInitializedAsync();
     }
 
-    protected async override Task OnParametersSetAsync()
-    {
-        NewsfeedFilterCollection = await filterService.GetAllAsync();
-        await base.OnParametersSetAsync();
-    }
-
-    public void SetFilter(NewsfeedFilter filter)
+    private void SetFilter(NewsfeedFilter filter)
     {
         newsfeedFilter.CopyFilterValues(filter);
     }
 
-    public async Task AddNewFilterAsync()
+    private async Task AddNewFilterAsync()
     {
         IModalReference filterModal = Modal.Show<FilterSettingsAddNewFilter>("Tilføj Nyt Filter");
         ModalResult result = await filterModal.Result;
@@ -59,13 +68,13 @@
         }
     }
 
-    public async Task DeleteFilterAsync(NewsfeedFilter filter)
+    private async Task DeleteFilterAsync(NewsfeedFilter filter)
     {
         filterService.Delete(filter);
         NewsfeedFilterCollection = await filterService.GetAllAsync();
     }
 
-    public async Task EditFilterAsync(NewsfeedFilter filter)
+    private async Task EditFilterAsync(NewsfeedFilter filter)
     {
         ModalParameters data = new ModalParameters().Add(nameof(FilterSettingsAddNewFilter.Filter), filter);
         IModalReference filterModal = Modal.Show<FilterSettingsAddNewFilter>("Rediger Filter", data);

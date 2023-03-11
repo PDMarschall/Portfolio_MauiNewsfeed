@@ -1,7 +1,7 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 
 <div>
-    <EditForm EditContext="_editContext" OnValidSubmit="SubmitFormAsync" OnInvalidSubmit="InvalidSubmitForm">
+    <EditForm EditContext="_editContext" OnValidSubmit="ValidSubmitFormAsync" OnInvalidSubmit="InvalidSubmitForm">
         <DataAnnotationsValidator />
         <div class="row g-3 align-items-center">
             <div>
@@ -62,10 +62,8 @@
     {
         if (Filter != null && firstRender)
         {
-            _filterInputModel.Title = Filter.Title;
-            _filterInputModel.Whitelist = String.Join(", ", Filter.UserWhitelist);
-            _filterInputModel.Blacklist = String.Join(", ", Filter.UserBlacklist);
-            _editFilterMode = true;
+            CopyExistingFilterToEdit();
+            SetEditFlag();
         }
         base.OnAfterRender(firstRender);
     }
@@ -79,7 +77,7 @@
         _editContext.NotifyFieldChanged(blacklistId);        
     }
 
-    private async Task SubmitFormAsync()
+    private async Task ValidSubmitFormAsync()
     {
         Filter ??= new NewsfeedFilter();
         Filter = _filterInputModel.ConvertInputModel();
@@ -88,6 +86,17 @@
 
     private async Task Cancel() => await BlazoredModal.CancelAsync();
 
+    private void CopyExistingFilterToEdit()
+    {
+        _filterInputModel.Title = Filter.Title;
+        _filterInputModel.Whitelist = String.Join(", ", Filter.UserWhitelist);
+        _filterInputModel.Blacklist = String.Join(", ", Filter.UserBlacklist);
+    }
+
+    private void SetEditFlag()
+    {
+        _editFilterMode = true;
+    }
 }
 
 

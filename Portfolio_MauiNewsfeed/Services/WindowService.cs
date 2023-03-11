@@ -8,10 +8,10 @@ namespace Portfolio_MauiNewsfeed.Services
 {
     public class WindowService
     {
-        public Window MainWindow { get; set; }
+        public Window MainWindow { get; init; }
         public WindowService()
         {
-            MainWindow = Application.Current.Windows.First();
+            MainWindow = Application.Current.Windows[0];
         }        
     }
 }

@@ -13,7 +13,7 @@ namespace Portfolio_MauiNewsfeed.Filtering
     {
         private readonly char[] _separators = { ' ', ',', '.', ';', ':', '?', '!' };
         private const string WhitelistName = "Whitelist";
-        private const string BlacklistName = "Blacklist";        
+        private const string BlacklistName = "Blacklist";
         private const string RegexError = "Mindst 1 ord og maksimalt 3 ord.";
         private const string DisjunctionError = "Vælg mindst 1 ord til enten whitelist eller blacklist.";
 
@@ -22,9 +22,8 @@ namespace Portfolio_MauiNewsfeed.Filtering
 
         [RegularExpression(@"^\b[a-zæøåA-ZÆØÅ]+\b(?:[ ,.;:?!]\s*[a-zæøåA-ZÆØÅ]+\b){0,2}\s*$",
             ErrorMessage = RegexError),
-            RequiredDisjunction(new string[] { WhitelistName, BlacklistName },            
+            RequiredDisjunction(new string[] { WhitelistName, BlacklistName },
             ErrorMessage = DisjunctionError)]
-
         public string Whitelist { get; set; } = string.Empty;
 
         [RegularExpression(@"^\b[a-zæøåA-ZÆØÅ]+\b(?:[ ,.;:?!]\s*[a-zæøåA-ZÆØÅ]+\b){0,2}\s*$",

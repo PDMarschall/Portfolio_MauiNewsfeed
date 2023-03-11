@@ -1,5 +1,5 @@
 ﻿<div class="btn-group" role="group">
-  @foreach (TabPage tabPage in Pages)
+    @foreach (TabPage tabPage in _pages)
   {
     <button type="button"
       class="btn @GetButtonClass(tabPage)"
@@ -19,22 +19,23 @@
     public RenderFragment ChildContent { get; set; }
 
     public TabPage ActivePage { get; set; }
-    List<TabPage> Pages = new List<TabPage>();
 
-    internal void AddPage(TabPage tabPage)
+    private List<TabPage> _pages = new List<TabPage>();
+
+    public void AddPage(TabPage tabPage)
     {
-        Pages.Add(tabPage);
-        if (Pages.Count == 1)
+        _pages.Add(tabPage);
+        if (_pages.Count == 1)
             ActivePage = tabPage;
         StateHasChanged();
     }
 
-    string GetButtonClass(TabPage page)
+    private string GetButtonClass(TabPage page)
     {
         return page == ActivePage ? "btn-primary" : "btn-outline-primary";
     }
 
-    void ActivatePage(TabPage page)
+    private void ActivatePage(TabPage page)
     {
         ActivePage = page;
     }

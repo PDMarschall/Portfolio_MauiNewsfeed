@@ -28,7 +28,7 @@
 
 @code {
 
-    [Parameter]
+    [Parameter, EditorRequired]
     public string FeedUrl { get; set; }
 
     [Parameter]
@@ -49,20 +49,23 @@
         Whitelist ??= new List<string>();
         Blacklist ??= new List<string>();
 
-        var window = windowService.MainWindow;
-        window.Activated += (s, e) => GetFeed();
-
+        EnableRefreshFeedOnResume();
         base.OnInitialized();
     }
 
     protected override Task OnParametersSetAsync()
     {
         GetFeed();
-
         return base.OnParametersSetAsync();
     }
 
-    public void GetFeed()
+    private void EnableRefreshFeedOnResume()
+    {
+        var window = windowService.MainWindow;
+        window.Activated += (s, e) => GetFeed();
+    }
+
+    private void GetFeed()
     {        
         try
         {

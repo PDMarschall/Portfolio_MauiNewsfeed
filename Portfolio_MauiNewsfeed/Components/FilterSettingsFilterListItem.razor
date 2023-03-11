@@ -36,12 +36,12 @@
     [Parameter]
     public EventCallback<NewsfeedFilter> OnEditFilter { get; set; }
 
-    public string GetButtonClass()
+    private string GetButtonClass()
     {
         return IsActive ? "btn-filter" : "btn-outline-filter";
     }
 
-    public void SelectFilter()
+    private void SelectFilter()
     {
         if (!IsActive)
         {
@@ -52,12 +52,12 @@
             Preferences.Set("ActiveFilter", "None");
     }
 
-    public void DeleteFilter()
+    private void DeleteFilter()
     {
         OnDeleteFilter.InvokeAsync(Filter);
     }
 
-    public void EditFilter()
+    private void EditFilter()
     {
         OnEditFilter.InvokeAsync(Filter);
     }

@@ -1,7 +1,4 @@
 ﻿@page "/"
-@using Portfolio_MauiNewsfeed.Filtering;
-@using Portfolio_MauiNewsfeed.Services;
-@using System.Diagnostics;
 @inject NewsfeedFilter newsfeedFilter
 @inject IAppDataService<NewsfeedFilter> filterService
 
@@ -35,6 +32,18 @@
         _whitelist ??= new List<string>();
         _blacklist ??= new List<string>();
 
+        await CheckForActiveFilterAsync();
+        await base.OnInitializedAsync();
+    }
+
+    protected override void OnParametersSet()
+    {
+        CheckFiltering();
+        base.OnParametersSet();
+    }
+
+    private async Task CheckForActiveFilterAsync()
+    {
         var filters = await filterService.GetAllAsync();
         string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
 
@@ -44,11 +53,9 @@
             if (activeFilter != null)
                 newsfeedFilter.CopyFilterValues(activeFilter);
         }
-
-        await base.OnInitializedAsync();
     }
 
-    protected override void OnParametersSet()
+    private void CheckFiltering()
     {
         _enableFilter = Preferences.Get("EnableFilter", false);
 
@@ -62,8 +69,5 @@
             _whitelist.Clear();
             _blacklist.Clear();
         }
-
-        base.OnParametersSet();
     }
-
 }

@@ -24,7 +24,7 @@
     public string LabelMessage { get; set; }
 
     [Parameter]
-    public EventCallback<bool> ValueChanged { get; set; }
+    public EventCallback<bool> OnValueChanged { get; set; }
 
     private bool _value;
 
@@ -37,7 +37,7 @@
             if (_value != value)
             {
                 _value = value;
-                ValueChanged.InvokeAsync(_value);
+                OnValueChanged.InvokeAsync(_value);
             }
         }
     }
