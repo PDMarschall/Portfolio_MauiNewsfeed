@@ -4,3 +4,11 @@ A newsreader app for consuming select "DR Nyheder" RSS feeds while allowing the 
 
 Functional Requirements:
 - [x] Display RSS Feeds from DR Nyheder
+- [x] Developed specifically with Android devices in mind
+- [x] Toggle Filtering of the News Feed
+- [x] Blacklist Filter
+
+Non-functional Requirements:
+- [x] Userdefined Filters
+- [x] Use Local Storage for persisting filters
+- [x] Whitelist Filter
