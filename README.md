@@ -16,7 +16,7 @@ Non-functional Requirements:
 - [x] Use Local Storage for persisting filters
 - [x] Whitelist Filter
 
-### Implementation Details
+## Implementation Details
 
 1. The Application is a .NET Maui Blazor Hybrid solution. 
    - It leverages Maui for ease of deployment to all platforms natively.
