@@ -9,6 +9,7 @@ Functional Requirements:
 - [x] Blacklist Filter
 
 Non-functional Requirements:
-- [x] Userdefined Filters
+- [x] Userdefined Filters for up to 3 words per Filter.
+- [x] Create, Edit, Save, and Deletion of Userdefined Filters. 
 - [x] Use Local Storage for persisting filters
 - [x] Whitelist Filter
