@@ -1,4 +1,6 @@
-﻿namespace Portfolio_MauiNewsfeed;
+﻿using System.Diagnostics;
+
+namespace Portfolio_MauiNewsfeed;
 
 public partial class App : Application
 {

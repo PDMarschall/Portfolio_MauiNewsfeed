@@ -1,5 +1,6 @@
 ﻿using Blazored.Modal;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
 using Portfolio_MauiNewsfeed.Filtering;
 using Portfolio_MauiNewsfeed.Services;
 
@@ -25,8 +26,10 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
+        builder.Services.AddTransient<NewsfeedService>();
+        builder.Services.AddSingleton<WindowService>();
         builder.Services.AddSingleton<NewsfeedFilter>();
-        builder.Services.AddTransient<NewsfeedFilterService>();
+        builder.Services.AddTransient<IAppDataService<NewsfeedFilter>, NewsfeedFilterService>();
 
         return builder.Build();
     }

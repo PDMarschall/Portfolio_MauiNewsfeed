@@ -1,7 +1,7 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 @using Portfolio_MauiNewsfeed.Services;
 @inject NewsfeedFilter newsfeedFilter
-@inject NewsfeedFilterService filterService
+@inject IAppDataService<NewsfeedFilter> filterService
 
 <div class="list-group list-group-flush d-grid gap-2 border-0 w-auto dropdown_menu-7">
     @if (NewsfeedFilterCollection != null)
@@ -22,7 +22,7 @@
 
     protected async override Task OnInitializedAsync()
     {
-        NewsfeedFilterCollection = await filterService.GetAllFiltersAsync();
+        NewsfeedFilterCollection = await filterService.GetAllAsync();
         string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
 
         if (activeFilterTitle != "None")
@@ -37,7 +37,7 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        NewsfeedFilterCollection = await filterService.GetAllFiltersAsync();
+        NewsfeedFilterCollection = await filterService.GetAllAsync();
         await base.OnParametersSetAsync();
     }
 
@@ -54,15 +54,15 @@
         if (result.Confirmed)
         {
             NewsfeedFilter newFilter = (NewsfeedFilter)result.Data;
-            await filterService.SaveFilterAsync(newFilter);
-            NewsfeedFilterCollection = await filterService.GetAllFiltersAsync();
+            await filterService.SaveAsync(newFilter);
+            NewsfeedFilterCollection = await filterService.GetAllAsync();
         }
     }
 
     public async Task DeleteFilterAsync(NewsfeedFilter filter)
     {
-        filterService.DeleteFilter(filter);
-        NewsfeedFilterCollection = await filterService.GetAllFiltersAsync();
+        filterService.Delete(filter);
+        NewsfeedFilterCollection = await filterService.GetAllAsync();
     }
 
     public async Task EditFilterAsync(NewsfeedFilter filter)
@@ -74,8 +74,8 @@
         if (result.Confirmed)
         {
             NewsfeedFilter newFilter = (NewsfeedFilter)result.Data;
-            await filterService.SaveFilterAsync(newFilter);
-            NewsfeedFilterCollection = await filterService.GetAllFiltersAsync();
+            await filterService.SaveAsync(newFilter);
+            NewsfeedFilterCollection = await filterService.GetAllAsync();
         }
     }
 }

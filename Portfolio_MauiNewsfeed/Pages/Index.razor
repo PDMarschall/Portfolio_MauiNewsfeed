@@ -1,8 +1,9 @@
 ﻿@page "/"
 @using Portfolio_MauiNewsfeed.Filtering;
 @using Portfolio_MauiNewsfeed.Services;
+@using System.Diagnostics;
 @inject NewsfeedFilter newsfeedFilter
-@inject NewsfeedFilterService filterService
+@inject IAppDataService<NewsfeedFilter> filterService
 
 <TabControl>
     <TabPage Text="Seneste Nyt">
@@ -34,7 +35,7 @@
         _whitelist ??= new List<string>();
         _blacklist ??= new List<string>();
 
-        var filters = await filterService.GetAllFiltersAsync();
+        var filters = await filterService.GetAllAsync();
         string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
 
         if (activeFilterTitle != "None")

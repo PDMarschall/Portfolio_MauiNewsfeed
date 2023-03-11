@@ -1,7 +1,12 @@
 ﻿@using System.ServiceModel.Syndication;
 @using System.Xml;
 @using System.Collections.ObjectModel;
+@using Portfolio_MauiNewsfeed.Services;
+@using System.Diagnostics;
 @inject NavigationManager navigationManager
+@inject NewsfeedService newsfeedService
+@inject WindowService windowService
+
 <p class="text-danger font-weight-bold">@_errorMessage</p>
 <br />
 @if (_feed != null)
@@ -40,58 +45,43 @@
     private SyndicationFeed _filteredFeed;
     private string _errorMessage;
 
-    protected override Task OnParametersSetAsync()
+    protected override void OnInitialized()
     {
         Whitelist ??= new List<string>();
         Blacklist ??= new List<string>();
 
-        LoadFeed();
+        var window = windowService.MainWindow;
+        window.Activated += (s, e) => GetFeed();
 
-        if (_feed != null)
-        {
-            InitializeNullEntries();
+        base.OnInitialized();
+    }
 
-            if (IsFiltered)
-                ApplyFilter();
-        }
+    protected override Task OnParametersSetAsync()
+    {
+        GetFeed();
 
         return base.OnParametersSetAsync();
     }
 
-    public void LoadFeed()
+    public void GetFeed()
     {
+        Debug.WriteLine("Initialize feed");
         try
         {
-            XmlReader reader = XmlReader.Create(FeedUrl);
-            _feed = SyndicationFeed.Load(reader);
+            _feed = newsfeedService.LoadFeed(FeedUrl);
+
         }
         catch (Exception e)
         {
-            _errorMessage = $"There was a problem loading the feed: {e.Message}.";
+            _errorMessage = $"Der skete en fejl: {e.Message}";
         }
-    }
 
-    public void InitializeNullEntries()
-    {
-        foreach (SyndicationItem item in _feed.Items)
+        if (_feed != null)
         {
-            item.Summary ??= new TextSyndicationContent("");            
-        }
-    }
+            newsfeedService.InitializeNullEntries(_feed);
 
-    public void ApplyFilter()
-    {
-        if (Whitelist.Any() || Blacklist.Any())
-        {
-            _filteredFeed = _feed;
-            _filteredFeed.Items = _feed.Items.Where(x =>
-                (!Whitelist.Any()
-                ||
-                Whitelist.Any(searchTerm => x.Title.Text.ToLower().Contains(searchTerm.ToLower())))
-                &&
-                (!Blacklist.Any()
-                ||
-                Blacklist.Any(searchTerm => !x.Title.Text.ToLower().Contains(searchTerm.ToLower()))));
+            if (IsFiltered)
+                _filteredFeed = newsfeedService.ApplyFilter(_feed, Whitelist, Blacklist);
         }
     }
 }
