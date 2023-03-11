@@ -21,8 +21,8 @@ Non-functional Requirements:
 
    
 <div align="center">
-   <img align="left" width="30%" height="auto" src="https://user-images.githubusercontent.com/76184606/224510513-f100979b-cf71-426a-bd8c-7578ffa245a2.png">
-   <img width="30%" height="auto" src="https://user-images.githubusercontent.com/76184606/224510513-f100979b-cf71-426a-bd8c-7578ffa245a2.png">
+   <img align="left" width="30%" height="auto" src="https://user-images.githubusercontent.com/76184606/224510902-144fbbae-dfb6-48c9-9019-afd31aadf8ef.png">
+   <img width="30%" height="auto" src="https://user-images.githubusercontent.com/76184606/224510899-edebeb1f-0e58-4579-8c58-07bbd8343c04.png">
    <img align="right" width="30%" height="auto" src="https://user-images.githubusercontent.com/76184606/224510513-f100979b-cf71-426a-bd8c-7578ffa245a2.png">
 </div>
    
@@ -34,7 +34,8 @@ Non-functional Requirements:
    - The Front End is Component-Based and developed using Blazor
    - Following the Maui structure conventions, the application is a single project.
 
-
+![Newsfeed_FilterList](https://user-images.githubusercontent.com/76184606/224510899-edebeb1f-0e58-4579-8c58-07bbd8343c04.png)
+![Newsfeed_Index](https://user-images.githubusercontent.com/76184606/224510902-144fbbae-dfb6-48c9-9019-afd31aadf8ef.png)
 
 2. Persisting User Choices, Selections, such as whether to toggle filtering, is persisted using the Microsoft.Maui.Storage.Preferences static class.
    - Lightweight and easy to use for simple data types. For example, if I want the title of the active filter, I request the following:
