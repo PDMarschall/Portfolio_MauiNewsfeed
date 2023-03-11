@@ -29,4 +29,4 @@ Non-functional Requirements:
       ```cs
       string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
       ```
-   - s
+   - For storing the actual filters I leverage the FileSystem.AppDataDirector property to dynamically store local .json data in a platform agnostic "correct directory".
