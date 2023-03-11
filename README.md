@@ -39,7 +39,7 @@ Non-functional Requirements:
    - To handle this I extended the ValidationAttribute-class and developed an attribute [RequiredDisjunction], which allows a developer to specify any number of properties by name, of which at least 1 should have a valid value. Example usage:
    
       ```cs
-      [RequiredDisjunction("PropertyName1", "PropertyName2", ErrorMessage = "At least one of these should be filled out."] )
+      [RequiredDisjunction("PropertyName1", "PropertyName2", ErrorMessage = "At least one of these should be filled out."]
       ```
    
    - This attribute is applied to both the whitelist and blacklist on the NewsfeedFilterInputModel, whereby the user is required to specify at least one filter word.
