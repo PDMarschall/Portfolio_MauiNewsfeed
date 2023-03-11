@@ -20,11 +20,11 @@ Non-functional Requirements:
 ## Visual Presentation
 
    
-<p align="space-around">
+<div>
    <img width="30%" height="auto" src="https://user-images.githubusercontent.com/76184606/224510513-f100979b-cf71-426a-bd8c-7578ffa245a2.png">
    <img width="30%" height="auto" src="https://user-images.githubusercontent.com/76184606/224510513-f100979b-cf71-426a-bd8c-7578ffa245a2.png">
   <img width="30%" height="auto" src="https://user-images.githubusercontent.com/76184606/224510513-f100979b-cf71-426a-bd8c-7578ffa245a2.png">
-</p>
+</div>
    
 ## Selected Implementation Details
 
