@@ -30,13 +30,16 @@ Non-functional Requirements:
       ```cs
       string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
       ```
+      
 3. For storing the actual filters I leverage the FileSystem.AppDataDirector property to dynamically store local .json data in a platform agnostic "correct directory".
    - This is handled through an IAppDataService<T>-implementation, which makes it easy to extend the application to save other types of data and secures a low coupling between service and UI.
 
 4. Validation of a new filter to be created presented an obstacle due to the whitelist and blacklist. 
    - Clearly it should not be a requirement to input any words in both, but there should be one in either for a valid submit of the inputform.
    - To handle this I extended the ValidationAttribute-class and developed an attribute [RequiredDisjunction], which allows a developer to specify any number of properties by name, of which at least 1 should have a valid value. 
-   ```cs
-   [RequiredDisjunction("PropertyName1", "PropertyName2", ErrorMessage = "At least one of these should be filled out."] )
-   ```
+   
+      ```cs
+      [RequiredDisjunction("PropertyName1", "PropertyName2", ErrorMessage = "At least one of these should be filled out."] )
+      ```
+   
    - This attribute is applied to both the whitelist and blacklist on the NewsfeedFilterInputModel, whereby the user is required to specify at least one filter word.
