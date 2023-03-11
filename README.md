@@ -19,4 +19,4 @@ Non-functional Requirements:
 ### Implementation Details
 
 1. The Application is a .NET Maui Blazor Hybrid solution. 
- - It leverages Maui for ease of deployment to all platforms natively.
+   - It leverages Maui for ease of deployment to all platforms natively.
