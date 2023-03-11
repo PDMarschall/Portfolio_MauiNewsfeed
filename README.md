@@ -18,17 +18,19 @@ Non-functional Requirements:
 - [x] Whitelist Filter
 
 ## Visual Presentation
-
-<p align="center">  
-  <img src="https://www.dropbox.com/s/w3xxiisrjv90r77/Newsfeed_Index.png?dl=0" width="350" alt="accessibility text">
-</p>
+![Newsfeed_AddnewFilter](https://user-images.githubusercontent.com/76184606/224510513-f100979b-cf71-426a-bd8c-7578ffa245a2.png)
+![Newsfeed_Index](https://user-images.githubusercontent.com/76184606/224510504-eff36fb8-be3f-425c-9979-2aedd0c0c621.png)
+![Newsfeed_FilterList](https://user-images.githubusercontent.com/76184606/224510511-063d4bff-92d4-4382-95a8-5d6cc0c5da84.png)
 
 ## Selected Implementation Details
+
 
 1. The Application is a .NET Maui Blazor Hybrid solution. 
    - It leverages Maui for ease of deployment to all platforms natively.
    - The Front End is Component-Based and developed using Blazor
    - Following the Maui structure conventions, the application is a single project.
+
+
 
 2. Persisting User Choices, Selections, such as whether to toggle filtering, is persisted using the Microsoft.Maui.Storage.Preferences static class.
    - Lightweight and easy to use for simple data types. For example, if I want the title of the active filter, I request the following:
