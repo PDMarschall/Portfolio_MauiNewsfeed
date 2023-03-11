@@ -29,4 +29,5 @@ Non-functional Requirements:
       ```cs
       string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
       ```
-3. For storing the actual filters I leverage the FileSystem.AppDataDirector property to dynamically store local .json data in a platform agnostic "correct directory".      - This is handled through an IAppDataService<T>-implementation, which makes it easy to extend the application to save other types of data and secures a low coupling between service and UI.
+3. For storing the actual filters I leverage the FileSystem.AppDataDirector property to dynamically store local .json data in a platform agnostic "correct directory".
+   - This is handled through an IAppDataService<T>-implementation, which makes it easy to extend the application to save other types of data and secures a low coupling between service and UI.
