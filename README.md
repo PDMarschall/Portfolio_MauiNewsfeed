@@ -18,10 +18,16 @@ Non-functional Requirements:
 - [x] Whitelist Filter
 
 ## Visual Presentation
+<div>
 ![Newsfeed_AddnewFilter](https://user-images.githubusercontent.com/76184606/224510513-f100979b-cf71-426a-bd8c-7578ffa245a2.png)
 ![Newsfeed_Index](https://user-images.githubusercontent.com/76184606/224510504-eff36fb8-be3f-425c-9979-2aedd0c0c621.png)
 ![Newsfeed_FilterList](https://user-images.githubusercontent.com/76184606/224510511-063d4bff-92d4-4382-95a8-5d6cc0c5da84.png)
-
+<div>
+   
+<p align="center">
+  <img width="460" height="300" src="[http://www.fillmurray.com/460/300](https://user-images.githubusercontent.com/76184606/224510513-f100979b-cf71-426a-bd8c-7578ffa245a2.png)">
+</p>
+   
 ## Selected Implementation Details
 
 
