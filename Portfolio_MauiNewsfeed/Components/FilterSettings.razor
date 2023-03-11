@@ -1,18 +1,12 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 @using Portfolio_MauiNewsfeed.Services;
 
-<h1>Indstillinger</h1>
-<div class="card">
-    <div class="card-header">
-        Filterindstillinger
+<SettingsCard HeaderText="Filterindstillinger">
+    <FilterSettingsToggle Id="FilterToggle" LabelTitle="Filtrér" LabelMessage="Slår filtrering af nyheder til og fra." Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter" />
+    <div class="@(Preferences.Get("EnableFilter", false) == false ? "d-none" : "d-block")">
+        <FilterSettingsFilterList />
     </div>
-    <div class="card-body">             
-        <FilterSettingsToggle Id="FilterToggle" LabelTitle="Filtrér" LabelMessage="Slår filtrering af nyheder til og fra." Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter" />
-        <div class="@(Preferences.Get("EnableFilter", false) == false ? "d-none" : "d-block")">
-            <FilterSettingsFilterList />
-        </div>
-    </div>
-</div>
+</SettingsCard>
 
 @code {
 

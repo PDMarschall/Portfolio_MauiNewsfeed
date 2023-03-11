@@ -8,7 +8,6 @@
 @inject WindowService windowService
 
 <p class="text-danger font-weight-bold">@_errorMessage</p>
-<br />
 @if (_feed != null)
 {
     if (Blacklist.Count() > 0 || Whitelist.Count() > 0)
@@ -26,7 +25,7 @@
         }
     }
 }
-<br />
+
 @code {
 
     [Parameter]
@@ -64,8 +63,7 @@
     }
 
     public void GetFeed()
-    {
-        Debug.WriteLine("Initialize feed");
+    {        
         try
         {
             _feed = newsfeedService.LoadFeed(FeedUrl);

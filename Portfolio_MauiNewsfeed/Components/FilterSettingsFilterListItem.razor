@@ -1,13 +1,13 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 
-<div class="list-group-item rounded-3 py-3 border-1 filter-item d-flex justify-content-between align-items-center @(IsActive ? "selected-filter" : "filter-item-hoverable")" id="@Id">
+<div class="list-group-item rounded-3 py-3 border-1 filter-item d-flex justify-content-between align-items-center @(IsActive ? "selected-filter" : "")" id="@Id">
     <div class="d-flex flex-column">
         <label class="@(IsActive ? "fw-bold" : "")" for="@Id">@Filter.Title</label>
     </div>
     <div class="btn-group align-self-center" role="group">
-        <label class="btn @(IsActive ? "btn-filter" : "btn-outline-filter") btn-hover" @onclick="EditFilter"><i class="@(IsActive ? "bi bi-pencil" : "bi bi-pencil-fill")"></i></label>
-        <label class="btn @(IsActive ? "btn-filter" : "btn-outline-filter") btn-hover" @onclick="DeleteFilter"><i class="@(IsActive ? "bi bi-trash" : "bi bi-trash-fill")"></i></label>
-        <label class="btn @(IsActive ? "btn-filter" : "btn-outline-filter") btn-hover" @onclick="SelectFilter"><i class="@(IsActive ? "bi bi-toggle-on" : "bi bi-toggle-off")"></i></label>
+        <label class="btn @GetButtonClass()" @onclick="EditFilter"><i class="@(IsActive ? "bi bi-pencil" : "bi bi-pencil-fill")"></i></label>
+        <label class="btn @GetButtonClass()" @onclick="DeleteFilter"><i class="@(IsActive ? "bi bi-trash" : "bi bi-trash-fill")"></i></label>
+        <label class="btn @GetButtonClass()" @onclick="SelectFilter"><i class="@(IsActive ? "bi bi-toggle-on" : "bi bi-toggle-off")"></i></label>
     </div>
 </div>
 
@@ -35,6 +35,11 @@
 
     [Parameter]
     public EventCallback<NewsfeedFilter> OnEditFilter { get; set; }
+
+    public string GetButtonClass()
+    {
+        return IsActive ? "btn-filter" : "btn-outline-filter";
+    }
 
     public void SelectFilter()
     {

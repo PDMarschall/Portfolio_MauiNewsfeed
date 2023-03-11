@@ -1,17 +1,4 @@
-﻿.filter-item {
-    display: flex;
-    align-items: center;
-}
-
-.btn-hover:hover {
-    font-weight: bold;
-}
-
-.filter-item-hoverable:hover {
-    background-color: #f8f9fa;
-}
-
-.selected-filter {
+﻿.selected-filter {
     color: #fff;
     background-color: #0d6efd;
     border-color: var(--bs-blue);
@@ -27,20 +14,20 @@
     .btn-filter:hover {
         color: #fff;
         background-color: #0d6efd;
-        border-color: #0a58ca
+        border-color: #fff
     }
 
     .btn-check:focus + .btn-filter, .btn-filter:focus {
         color: #fff;
         background-color: #0d6efd;
-        border-color: #0a58ca;
+        border-color: #fff;
         box-shadow: 0 0 0 .25rem rgba(49,132,253,.5)
     }
 
     .btn-check:active + .btn-filter, .btn-check:checked + .btn-filter, .btn-filter.active, .btn-filter:active, .show > .btn-filter.dropdown-toggle {
         color: #fff;
         background-color: #0d6efd;
-        border-color: #0a53be
+        border-color: #fff
     }
 
         .btn-check:active + .btn-filter:focus, .btn-check:checked + .btn-filter:focus, .btn-filter.active:focus, .btn-filter:active:focus, .show > .btn-filter.dropdown-toggle:focus {
