@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Portfolio_MauiNewsfeed.Services
 {
-    public class GenericAppDataService<T> : IAppDataService<T> where T : IAppDataItem
+    public abstract class GenericAppDataService<T> : IAppDataService<T> where T : IAppDataItem
     {
         public string EntityExtension { get; set; }
 
