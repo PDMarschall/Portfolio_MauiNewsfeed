@@ -17,6 +17,10 @@ Non-functional Requirements:
 - [x] Use Local Storage for persisting filters
 - [x] Whitelist Filter
 
+## Visual Presentation
+
+![My Remote Image]([https://www.dropbox.com/s/.../my-remote-image.jpg?dl=0](https://www.dropbox.com/s/w3xxiisrjv90r77/Newsfeed_Index.png?dl=0))
+
 ## Selected Implementation Details
 
 1. The Application is a .NET Maui Blazor Hybrid solution. 
