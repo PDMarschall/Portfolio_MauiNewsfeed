@@ -25,6 +25,6 @@ Non-functional Requirements:
 
 2. Persisting User Choices and Selections, such as whether to toggle filtering, is persisted using the Microsoft.Maui.Storage.Preferences static class.
    - Lightweight and easy to use for simple data types. For example, if I want the title of the active filter:
-   - ```
-   - string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
-   - ```
+   ```cs
+   string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
+   ```
