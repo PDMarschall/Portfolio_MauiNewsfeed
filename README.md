@@ -20,3 +20,11 @@ Non-functional Requirements:
 
 1. The Application is a .NET Maui Blazor Hybrid solution. 
    - It leverages Maui for ease of deployment to all platforms natively.
+   - The Front End is Component-Based and developed using Blazor
+   - Following the Maui structure conventions, the application is a single project.
+
+2. Persisting User Choices and Selections, such as whether to toggle filtering, is persisted using the Microsoft.Maui.Storage.Preferences static class.
+   - Lightweight and easy to use for simple data types. For example, if I want the title of the active filter:
+   - ```
+   - string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
+   - ```
