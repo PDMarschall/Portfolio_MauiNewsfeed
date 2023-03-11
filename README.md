@@ -23,10 +23,10 @@ Non-functional Requirements:
    - The Front End is Component-Based and developed using Blazor
    - Following the Maui structure conventions, the application is a single project.
 
-2. Persisting User Choices and Selections, such as whether to toggle filtering, is persisted using the Microsoft.Maui.Storage.Preferences static class.
+2. Persisting User Choices, Selections, such as whether to toggle filtering, is persisted using the Microsoft.Maui.Storage.Preferences static class.
    - Lightweight and easy to use for simple data types. For example, if I want the title of the active filter, I request the following:
    
       ```cs
       string activeFilterTitle = Preferences.Get("ActiveFilter", "None");
       ```
-   - For storing the actual filters I leverage the FileSystem.AppDataDirector property to dynamically store local .json data in a platform agnostic "correct directory". This is handled through an IAppDataService<T>-implementation, which makes it easy to extend the application to save other types of data and secures a low coupling between service and UI.
+3. For storing the actual filters I leverage the FileSystem.AppDataDirector property to dynamically store local .json data in a platform agnostic "correct directory". This is handled through an IAppDataService<T>-implementation, which makes it easy to extend the application to save other types of data and secures a low coupling between service and UI.
