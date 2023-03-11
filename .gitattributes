@@ -62,5 +62,4 @@
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
 
-
-*.HTML+Razor linguist-detecable=true
+*.razor linguist-language=csharp
