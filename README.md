@@ -20,7 +20,7 @@ Non-functional Requirements:
 ## Visual Presentation
 
 <p align="center">  
-  <img src="[your_relative_path_here_number_2_large_name](https://www.dropbox.com/s/w3xxiisrjv90r77/Newsfeed_Index.png?dl=0)" width="350" alt="accessibility text">
+  <img src="(https://www.dropbox.com/s/w3xxiisrjv90r77/Newsfeed_Index.png?dl=0)" width="350" alt="accessibility text">
 </p>
 
 ## Selected Implementation Details
