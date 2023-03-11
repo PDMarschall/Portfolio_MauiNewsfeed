@@ -4,14 +4,14 @@
 
 A newsreader app for consuming select "DR Nyheder" RSS feeds while allowing the user to filter the contents of said feeds. Developed as part of a .NET Maui-course at  Dania Academy.
 
-Functional Requirements:
+*Functional Requirements:*
 - [x] Display RSS Feeds from DR Nyheder
 - [x] Developed specifically with Android devices in mind
 - [x] Toggle Filtering of the News Feed
 - [x] Blacklist Filter
 - [x] UI Localized in Danish 
 
-Non-functional Requirements:
+*Non-functional Requirements:*
 - [x] Userdefined Filters for up to 3 words per Filter.
 - [x] Create, Edit, Save, and Deletion of Userdefined Filters. 
 - [x] Use Local Storage for persisting filters
@@ -19,11 +19,15 @@ Non-functional Requirements:
 
 ## Visual Presentation
 
-<p align="center">  
-  <img src="https://www.dropbox.com/s/w3xxiisrjv90r77/Newsfeed_Index.png?dl=0" width="350" alt="accessibility text">
-</p>
-
+   
+<div align="center">
+   <img align="left" width="30%" height="auto" src="https://user-images.githubusercontent.com/76184606/224510902-144fbbae-dfb6-48c9-9019-afd31aadf8ef.png">
+   <img width="30%" height="auto" src="https://user-images.githubusercontent.com/76184606/224510899-edebeb1f-0e58-4579-8c58-07bbd8343c04.png">
+   <img align="right" width="30%" height="auto" src="https://user-images.githubusercontent.com/76184606/224510513-f100979b-cf71-426a-bd8c-7578ffa245a2.png">
+</div>
+   
 ## Selected Implementation Details
+
 
 1. The Application is a .NET Maui Blazor Hybrid solution. 
    - It leverages Maui for ease of deployment to all platforms natively.
@@ -38,7 +42,7 @@ Non-functional Requirements:
       ```
       
 3. For storing the actual filters I leverage the FileSystem.AppDataDirector property to dynamically store local .json data in a platform agnostic "correct directory".
-   - This is handled through an IAppDataService<T>-implementation, which makes it easy to extend the application to save other types of data and secures a low coupling between service and UI.
+   - This is handled through an IAppDataService< T >-implementation, which makes it easy to extend the application to save other types of data and secures a low coupling between service and UI.
 
 4. Validation of a new filter to be created presented an obstacle due to the whitelist and blacklist. 
    - Clearly it should not be a requirement to input any words in both, but there should be one in either for a valid submit of the inputform.
