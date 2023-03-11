@@ -9,6 +9,7 @@ Functional Requirements:
 - [x] Developed specifically with Android devices in mind
 - [x] Toggle Filtering of the News Feed
 - [x] Blacklist Filter
+- [x] UI Localized in Danish 
 
 Non-functional Requirements:
 - [x] Userdefined Filters for up to 3 words per Filter.
