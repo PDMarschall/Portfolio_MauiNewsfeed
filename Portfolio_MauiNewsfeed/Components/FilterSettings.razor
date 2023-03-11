@@ -2,7 +2,7 @@
 @using Portfolio_MauiNewsfeed.Services;
 
 <SettingsCard HeaderText="Filterindstillinger">
-    <FilterSettingsToggle Id="FilterToggle" LabelTitle="Filtrér" LabelMessage="Slår filtrering af nyheder til og fra." Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter" />
+    <SettingsToggle Id="FilterToggle" LabelTitle="Filtrér" LabelMessage="Slår filtrering af nyheder til og fra." Value="@Preferences.Get("EnableFilter", false)" ValueChanged="ToggleFilter" />
     <div class="@(Preferences.Get("EnableFilter", false) == false ? "d-none" : "d-block")">
         <FilterSettingsFilterList />
     </div>
