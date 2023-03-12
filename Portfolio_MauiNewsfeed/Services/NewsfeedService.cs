@@ -24,7 +24,7 @@ namespace Portfolio_MauiNewsfeed.Services
             }
         }
 
-        public SyndicationFeed ApplyFilter(SyndicationFeed feed, List<string> whitelist, List<string> blacklist)
+        public SyndicationFeed ApplyFilter(SyndicationFeed feed, IEnumerable<string> whitelist, IEnumerable<string> blacklist)
         {
             SyndicationFeed filteredFeed = new SyndicationFeed();
             if (whitelist.Any() || blacklist.Any())
@@ -42,6 +42,5 @@ namespace Portfolio_MauiNewsfeed.Services
             return filteredFeed;
         }
     }
-
 
 }

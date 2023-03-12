@@ -18,7 +18,7 @@
 
     [CascadingParameter] public IModalService Modal { get; set; } = default!;
 
-    public List<NewsfeedFilter> NewsfeedFilterCollection { get; set; }
+    public IList<NewsfeedFilter> NewsfeedFilterCollection { get; set; }
 
     protected async override Task OnInitializedAsync()
     {

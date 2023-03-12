@@ -11,7 +11,7 @@ namespace Portfolio_MauiNewsfeed.Services
     {
         public string EntityExtension { get; set; }
 
-        public virtual async Task<List<T>> GetAllAsync()
+        public virtual async Task<IList<T>> GetAllAsync()
         {
             if (EntityExtension == string.Empty)
                 throw new InvalidOperationException("Service requires an Entity Extension to be defined for getting files.");

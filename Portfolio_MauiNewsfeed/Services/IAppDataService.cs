@@ -10,7 +10,7 @@ namespace Portfolio_MauiNewsfeed.Services
     {
         string EntityExtension { get; set; }
         void Delete(T entity);
-        Task<List<T>> GetAllAsync();
+        Task<IList<T>> GetAllAsync();
         Task SaveAsync(T entity);
     }
 }
