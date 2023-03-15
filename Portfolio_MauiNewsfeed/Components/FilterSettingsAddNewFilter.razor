@@ -1,7 +1,7 @@
 ﻿@using Portfolio_MauiNewsfeed.Filtering;
 
 <div>
-    <EditForm EditContext="_editContext" OnValidSubmit="ValidSubmitFormAsync" OnInvalidSubmit="InvalidSubmitForm">
+    <EditForm EditContext="_editContext" OnValidSubmit="ValidSubmitFormAsync">
         <DataAnnotationsValidator />
         <div class="row g-3 align-items-center">
             <div>
@@ -66,15 +66,6 @@
             SetEditFlag();
         }
         base.OnAfterRender(firstRender);
-    }
-
-    // for displaying validation messages on untouched inputs
-    private void InvalidSubmitForm()
-    {
-        FieldIdentifier whitelistId = _editContext.Field("Whitelist");
-        _editContext.NotifyFieldChanged(whitelistId);
-        FieldIdentifier blacklistId = _editContext.Field("Blacklist");
-        _editContext.NotifyFieldChanged(blacklistId);        
     }
 
     private async Task ValidSubmitFormAsync()

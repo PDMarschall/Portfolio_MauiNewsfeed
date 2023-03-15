@@ -21,7 +21,7 @@ namespace Portfolio_MauiNewsfeed.Helpers.Attributes
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            return ValidateDisjunctiveProperties(validationContext) ? ValidationResult.Success : new ValidationResult(ErrorMessage);
+            return ValidateDisjunctiveProperties(validationContext) ? ValidationResult.Success : new ValidationResult(ErrorMessage, new[] { validationContext.MemberName });
         }
 
         private bool ValidateDisjunctiveProperties(ValidationContext validationContext)
